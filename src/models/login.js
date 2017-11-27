@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie';
+
 import { routerRedux } from 'dva/router';
 import { fakeAccountLogin, fakeMobileLogin } from '../services/api';
 
@@ -15,6 +17,9 @@ export default {
         payload: true,
       });
       const response = yield call(fakeAccountLogin, payload);
+      if (response && response.status === 'ok') {
+        Cookie.set('msxToken', 'msxToken', 1);
+      }
       yield put({
         type: 'changeLoginStatus',
         payload: response,
@@ -30,6 +35,9 @@ export default {
         payload: true,
       });
       const response = yield call(fakeMobileLogin);
+      if (response && response.status === 'ok') {
+        Cookie.set('msxToken', 'msxToken', 1);
+      }
       yield put({
         type: 'changeLoginStatus',
         payload: response,
@@ -37,6 +45,12 @@ export default {
       yield put({
         type: 'changeSubmitting',
         payload: false,
+      });
+    },
+    *alreadyLogin(_, { put }) {
+      yield put({
+        type: 'changeLoginStatus',
+        payload: { status: 'ok', type: 'account' },
       });
     },
     *logout(_, { put }) {
