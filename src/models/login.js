@@ -47,12 +47,6 @@ export default {
         payload: false,
       });
     },
-    *alreadyLogin(_, { put }) {
-      yield put({
-        type: 'changeLoginStatus',
-        payload: { status: 'ok', type: 'account' },
-      });
-    },
     *logout(_, { put }) {
       yield put({
         type: 'changeLoginStatus',
