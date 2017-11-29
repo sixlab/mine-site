@@ -1,7 +1,7 @@
 {
-  "name": "ant-design-pro",
-  "version": "0.3.0",
-  "description": "An out-of-box UI solution for enterprise applications",
+  "name": "Minesite",
+  "version": "0.2.0",
+  "description": "Front-end for MinesiteX",
   "private": true,
   "scripts": {
     "precommit": "npm run lint-staged",
