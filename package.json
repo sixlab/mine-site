@@ -69,6 +69,7 @@
     "jest": "^21.0.1",
     "lint-staged": "^4.3.0",
     "mockjs": "^1.0.1-beta3",
+    "prettier": "^1.9.0",
     "pro-download": "^1.0.0",
     "react-test-renderer": "^16.0.0",
     "redbox-react": "^1.3.2",
@@ -82,27 +83,14 @@
     "nightmare": "^2.10.0"
   },
   "babel": {
-    "presets": [
-      "env",
-      "react"
-    ],
-    "plugins": [
-      "transform-decorators-legacy",
-      "transform-class-properties"
-    ]
+    "presets": ["env", "react"],
+    "plugins": ["transform-decorators-legacy", "transform-class-properties"]
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/tests/setupTests.js"
-    ],
-    "testMatch": [
-      "**/?(*.)(spec|test|e2e).js?(x)"
-    ],
+    "setupFiles": ["<rootDir>/tests/setupTests.js"],
+    "testMatch": ["**/?(*.)(spec|test|e2e).js?(x)"],
     "setupTestFrameworkScriptFile": "<rootDir>/tests/jasmine.js",
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
+    "moduleFileExtensions": ["js", "jsx"],
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/tests/styleMock.js"
     }
@@ -111,9 +99,5 @@
     "**/*.{js,jsx}": "lint-staged:js",
     "**/*.less": "stylelint --syntax less"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 10"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"]
 }

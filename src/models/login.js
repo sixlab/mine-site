@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin, fakeMobileLogin } from '../services/api';
+import { fakeAccountLogin } from '../services/api';
 
 export default {
   namespace: 'login',
@@ -11,7 +11,7 @@ export default {
   },
 
   effects: {
-    *accountSubmit({ payload }, { call, put }) {
+    *login({ payload }, { call, put }) {
       yield put({
         type: 'changeSubmitting',
         payload: true,
@@ -24,28 +24,10 @@ export default {
         type: 'changeLoginStatus',
         payload: response,
       });
-      yield put({
-        type: 'changeSubmitting',
-        payload: false,
-      });
-    },
-    *mobileSubmit(_, { call, put }) {
-      yield put({
-        type: 'changeSubmitting',
-        payload: true,
-      });
-      const response = yield call(fakeMobileLogin);
-      if (response && response.status === 'ok') {
-        Cookies.set('msxToken', 'msxToken', 1);
+      // Login successfully
+      if (response.status === 'ok') {
+        yield put(routerRedux.push('/'));
       }
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      yield put({
-        type: 'changeSubmitting',
-        payload: false,
-      });
     },
     *logout(_, { put }) {
       yield put({
@@ -64,6 +46,7 @@ export default {
         ...state,
         status: payload.status,
         type: payload.type,
+        submitting: false,
       };
     },
     changeSubmitting(state, { payload }) {
