@@ -1,7 +1,7 @@
 <#-- @ftlvariable name="topId" type="java.lang.Integer" -->
-<#-- @ftlvariable name="level1" type="java.util.List<cn.sixlab.minesite.models.MsMenu>" -->
-<#-- @ftlvariable name="level2" type="java.util.List<cn.sixlab.minesite.models.MsMenu>" -->
-<#-- @ftlvariable name="level3" type="java.util.List<cn.sixlab.minesite.models.MsMenu>" -->
+<#-- @ftlvariable name="level1" type="java.util.List<cn.sixlab.mine.site.data.models.MsMenu>" -->
+<#-- @ftlvariable name="level2" type="java.util.List<cn.sixlab.mine.site.data.models.MsMenu>" -->
+<#-- @ftlvariable name="level3" type="java.util.List<cn.sixlab.mine.site.data.models.MsMenu>" -->
 
 <#macro FrameHeader title=''>
 <head>

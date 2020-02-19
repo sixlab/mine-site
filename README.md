@@ -15,4 +15,6 @@
 * jwt
 
 前端技术栈：
-* Freemarker/React + Antd/Vue + Element.js
+* [待实现] Vue + Element.js
+* [待实现] React + Antd
+* [待实现] Freemarker + AdminLTE

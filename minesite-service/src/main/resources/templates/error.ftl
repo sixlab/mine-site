@@ -1,4 +1,4 @@
 <div style="width: 100%;text-align: center;">
-    ${code}<br/>
-    ${message}
+    ${code!'None'}<br/>
+    ${message!'None'}
 </div>
