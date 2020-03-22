@@ -26,11 +26,11 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: true
-#  freemarker:
-#    suffix: .ftl
-#    prefer-file-system-access: false
-#    settings:
-#      number_format: 0.##
+  #  freemarker:
+  #    suffix: .ftl
+  #    prefer-file-system-access: false
+  #    settings:
+  #      number_format: 0.##
   aop:
     auto: true
   messages:
@@ -59,7 +59,23 @@ spring:
       testOnReturn: false
       # 打开PSCache，并且指定每个连接上PSCache的大小
       poolPreparedStatements: true
-      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录,配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-      connectionProperties: druid.filters=config,stat,slf4j;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=${minesite.druid.key}
       # 合并多个DruidDataSource的监控数据 
       useGlobalDataSourceStat: true
+      filter:
+        stat:
+          enabled: true
+          merge-sql: true
+          slow-sql-millis: 5000
+        slf4j:
+          enabled: true
+        config:
+          enabled: true
+      connectionProperties: config.decrypt=true;config.decrypt.key=${minesite.druid.key}
+      stat-view-servlet:
+        reset-enable: true
+        url-pattern: "/druid/*"
+        login-username: ${minesite.druid.username}
+        login-password: ${minesite.druid.password}
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+        url-pattern: "/*"

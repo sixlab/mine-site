@@ -1,10 +1,10 @@
 package cn.sixlab.mine.site.service.config;
 
-import cn.sixlab.mine.site.service.service.UserService;
-import cn.sixlab.mine.site.data.models.MsUser;
 import cn.sixlab.mine.site.common.utils.*;
-import cn.sixlab.minesite.utils.*;
 import cn.sixlab.mine.site.common.vo.LoginUser;
+import cn.sixlab.mine.site.common.vo.ResultJson;
+import cn.sixlab.mine.site.data.models.MsUser;
+import cn.sixlab.mine.site.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,7 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
             message = exception.getMessage();
         }
 
-        WebUtils.writeJson(response, ResultUtils.error(Err.AUTH, message).toString());
+        WebUtils.writeJson(response, ResultJson.error(Err.AUTH, message).toString());
     }
 
     @Override
@@ -81,6 +81,6 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
 
         String token = UserUtils.login(msUser);
 
-        WebUtils.writeJson(response, ResultUtils.success(token).toString());
+        WebUtils.writeJson(response, ResultJson.successData(token).toString());
     }
 }

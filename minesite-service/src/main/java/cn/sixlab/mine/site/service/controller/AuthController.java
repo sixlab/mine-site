@@ -1,7 +1,6 @@
 package cn.sixlab.mine.site.service.controller;
 
-import cn.sixlab.mine.site.common.vo.Result;
-import cn.sixlab.mine.site.common.utils.ResultUtils;
+import cn.sixlab.mine.site.common.vo.ResultJson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,9 +15,9 @@ public class AuthController {
     @PreAuthorize("hasPermission('', 'denyAll')")
     @ResponseBody
     @RequestMapping("/userAuth")
-    public Result userAuth() {
+    public ResultJson userAuth() {
 
-        return ResultUtils.success();
+        return ResultJson.success();
     }
 
 }

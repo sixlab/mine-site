@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.common.utils;
 
-import cn.sixlab.mine.site.common.vo.Result;
+import cn.sixlab.mine.site.common.vo.ResultJson;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.util.CollectionUtils;
@@ -37,7 +37,7 @@ public class HttpUtils {
      * @param data   参数
      * @return Result
      */
-    public static Result sendRequest(String url, RequestMethod method, Map<String, String> data) {
+    public static ResultJson sendRequest(String url, RequestMethod method, Map<String, String> data) {
         return sendRequest(url, method, data, null);
     }
 
@@ -50,7 +50,7 @@ public class HttpUtils {
      * @param header header
      * @return Result
      */
-    public static Result sendRequest(String url, RequestMethod method, Map<String, String> data, Map<String, String> header) {
+    public static ResultJson sendRequest(String url, RequestMethod method, Map<String, String> data, Map<String, String> header) {
         if (RequestMethod.POST.equals(method)) {
             return sendPost(url, data, header);
         } else {
@@ -65,7 +65,7 @@ public class HttpUtils {
      * @param data 参数
      * @return Result
      */
-    public static Result sendPost(String url, Map<String, String> data) {
+    public static ResultJson sendPost(String url, Map<String, String> data) {
         return sendPost(url, data, null);
     }
 
@@ -77,7 +77,7 @@ public class HttpUtils {
      * @param header header
      * @return Result
      */
-    public static Result sendPost(String url, Map<String, String> data, Map<String, String> header) {
+    public static ResultJson sendPost(String url, Map<String, String> data, Map<String, String> header) {
         log.info("POST：" + url);
         log.info("参数：" + makeGetParam(data));
         log.info("header：" + makeGetParam(header));
@@ -124,7 +124,7 @@ public class HttpUtils {
      * @param data 参数
      * @return Result
      */
-    public static Result sendGet(String url, Map<String, String> data) {
+    public static ResultJson sendGet(String url, Map<String, String> data) {
         return sendGet(url, data, null);
     }
 
@@ -136,7 +136,7 @@ public class HttpUtils {
      * @param header header
      * @return Result
      */
-    public static Result sendGet(String url, Map<String, String> data, Map<String, String> header) {
+    public static ResultJson sendGet(String url, Map<String, String> data, Map<String, String> header) {
         log.info("POST：" + url);
         log.info("参数：" + makeGetParam(data));
         log.info("header：" + makeGetParam(header));
@@ -175,7 +175,7 @@ public class HttpUtils {
      * @param json json
      * @return Result
      */
-    public static Result sendPostJson(String url, String json) {
+    public static ResultJson sendPostJson(String url, String json) {
         return sendPostJson(url, json, null);
     }
 
@@ -187,7 +187,7 @@ public class HttpUtils {
      * @param header header
      * @return Result
      */
-    public static Result sendPostJson(String url, String json, Map<String, String> header) {
+    public static ResultJson sendPostJson(String url, String json, Map<String, String> header) {
         log.info("POST：" + url);
         log.info("JSON：" + json);
         log.info("header：" + makeGetParam(header));
@@ -224,7 +224,7 @@ public class HttpUtils {
      * @param header header
      * @return Result
      */
-    public static Result sendPostXml(String url, String xml, Map<String, String> header) {
+    public static ResultJson sendPostXml(String url, String xml, Map<String, String> header) {
         log.info("POST：" + url);
         log.info("XML：" + xml);
         log.info("header：" + makeGetParam(header));
@@ -303,37 +303,39 @@ public class HttpUtils {
         return url + "?" + makeGetParam(data, true);
     }
 
-    public static Result responseHandler(Response response) {
-        Result result = new Result();
-        result.setSuccess(false);
-        result.setCode(-1);
+    public static ResultJson responseHandler(Response response) {
+        ResultJson result = new ResultJson();
 
         if (response != null) {
-            result.setCode(response.code());
+            result.addData("code", response.code());
 
             if (response.isSuccessful() && response.body() != null) {
                 try {
                     String text = response.body().string();
                     log.info("返回：" + text);
 
-                    result.setSuccess(true);
-                    result.setMsg(text);
+                    result.setStatus(Err.SUCCESS);
+                    result.setMessage(text);
                 } catch (IOException e) {
                     log.error("请求错误", e);
-                    result.setMsg("common.request.wrong");
+                    result.setStatus(Err.EXCEPTION);
+                    result.setMessage("common.request.wrong");
                 }
             } else {
                 try {
                     if(response.body() != null){
-                        result.setMsg(response.body().string());
-                        log.error("请求失败：" + result.getMsg());
+                        result.setStatus(Err.EXCEPTION);
+                        result.setMessage(response.body().string());
+                        log.error("请求失败：" + result.getMessage());
                     }else{
-                        result.setMsg("common.request.error.null");
-                        log.error("请求失败：" + result.getMsg());
+                        result.setStatus(Err.EXCEPTION);
+                        result.setMessage("common.request.error.null");
+                        log.error("请求失败：" + result.getMessage());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    result.setMsg("common.request.error.fail");
+                    result.setStatus(Err.EXCEPTION);
+                    result.setMessage("common.request.error.fail");
                 }
             }
         }

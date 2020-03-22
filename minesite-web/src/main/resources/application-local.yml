@@ -2,21 +2,22 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/minesite?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/minesite?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: root
     password: YvrnbfRTMXY0YCaVtjef6q2vTwM4sSJg4IyBMiap1Sw37KMuBiSnOpB5bNnt6RxFkWjzV27ZEOuyxn5A6zAZCg==
+
 #  freemarker:
 #    cache: false
 
 logging:
-  config: classpath*:logback-console.xml
+  config: classpath:logback-console.xml
 
 minesite:
   username: admin
   druid:
     key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJbxUycCJKNFJjcGtb+2uzlqzVpZyXGbS7atTSFHVVVJWmUf8F9rakYg0Y2iQhNgVC1k8OE+ZTeU1TfepLsFpvkCAwEAAQ==
-    username: druid
-    password: druid
+    username: root
+    password: password
   login:
     seconds: 3600
     sign: dksk24k30xk

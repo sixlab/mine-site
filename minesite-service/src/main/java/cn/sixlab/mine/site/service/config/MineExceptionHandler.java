@@ -1,10 +1,9 @@
 package cn.sixlab.mine.site.service.config;
 
-import cn.sixlab.mine.site.common.vo.Result;
 import cn.sixlab.mine.site.common.utils.Err;
-import cn.sixlab.mine.site.common.utils.ResultUtils;
 import cn.sixlab.mine.site.common.utils.WebUtils;
 import cn.sixlab.mine.site.common.vo.MineException;
+import cn.sixlab.mine.site.common.vo.ResultJson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
@@ -34,21 +33,21 @@ public class MineExceptionHandler {
     public ModelAndView handleParamException(HttpServletRequest request, HttpServletResponse response, Exception e) {
         log.error("参数异常", e);
 
-        return errorMsg(request, response, ResultUtils.error(Err.EXCEPTION, "exception.parse"));
+        return errorMsg(request, response, ResultJson.error(Err.EXCEPTION, "exception.parse"));
     }
 
     @ExceptionHandler(value = {HttpMediaTypeNotSupportedException.class})
     public ModelAndView handleParamSupportException(HttpServletRequest request, HttpServletResponse response, Exception e) {
         log.error("参数类型不支持异常", e);
 
-        return errorMsg(request, response, ResultUtils.error(Err.EXCEPTION, "exception.type.not.support"));
+        return errorMsg(request, response, ResultJson.error(Err.EXCEPTION, "exception.type.not.support"));
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
     public ModelAndView handlerAccessDeniedException(HttpServletRequest request, HttpServletResponse response, Exception e) {
         log.error("AccessDeniedException", e);
 
-        Result result = ResultUtils.error(Err.AUTH, "auth.access.denied");
+        ResultJson result = ResultJson.error(Err.AUTH, "auth.access.denied");
 
         return errorMsg(request, response, result);
     }
@@ -57,11 +56,11 @@ public class MineExceptionHandler {
     public ModelAndView handler(HttpServletRequest request, HttpServletResponse response, Exception e) {
         MineException mineException = getException(e);
 
-        Result result;
+        ResultJson result;
         if (null != mineException) {
-            result = ResultUtils.error(mineException.getCode(), mineException.getMsg());
+            result = ResultJson.error(mineException.getCode(), mineException.getMsg());
         } else {
-            result = ResultUtils.error(Err.EXCEPTION, "exception.null");
+            result = ResultJson.error(Err.EXCEPTION, "exception.null");
         }
 
         return errorMsg(request, response, result);
@@ -88,14 +87,14 @@ public class MineExceptionHandler {
         return mineException;
     }
 
-    private ModelAndView errorMsg(HttpServletRequest request, HttpServletResponse response, Result result) {
+    private ModelAndView errorMsg(HttpServletRequest request, HttpServletResponse response, ResultJson result) {
         String method = request.getMethod();
 
         if ("get".equalsIgnoreCase(method)) {
             ModelAndView modelAndView = new ModelAndView("error");
 
-            modelAndView.addObject("code", result.getCode());
-            modelAndView.addObject("message", result.getMsg());
+            modelAndView.addObject("status", result.getStatus());
+            modelAndView.addObject("message", result.getMessage());
 
             return modelAndView;
         } else {

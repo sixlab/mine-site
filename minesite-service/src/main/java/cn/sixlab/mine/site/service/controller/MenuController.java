@@ -1,9 +1,8 @@
 package cn.sixlab.mine.site.service.controller;
 
-import cn.sixlab.mine.site.common.vo.Result;
+import cn.sixlab.mine.site.common.vo.ResultJson;
 import cn.sixlab.mine.site.data.models.MsMenu;
 import cn.sixlab.mine.site.service.service.MenuService;
-import cn.sixlab.mine.site.common.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,9 +20,9 @@ public class MenuController {
 
     @ResponseBody
     @RequestMapping("/userMenu")
-    public Result userMenu() {
+    public ResultJson userMenu() {
         Page<MsMenu> msMenus = menuService.loadUserMenu(null, 1);
 
-        return ResultUtils.success(msMenus);
+        return ResultJson.successData(msMenus);
     }
 }
