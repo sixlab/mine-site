@@ -69,7 +69,7 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
             message = exception.getMessage();
         }
 
-        WebUtils.writeJson(response, ResultJson.error(Err.AUTH, message).toString());
+        WebUtils.writeJson(response, ResultJson.error(Err.AUTH_MATCH, message).toString());
     }
 
     @Override

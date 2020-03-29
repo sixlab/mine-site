@@ -35,13 +35,13 @@ export default [
       // mock error
       if (!token) {
         return {
-          code: 60204,
+          status: 900,
           message: 'Account and password are incorrect.'
         }
       }
 
       return {
-        code: 20000,
+        status: 200,
         data: token
       }
     }
@@ -52,19 +52,20 @@ export default [
     url: '/vue-element-admin/user/info\.*',
     type: 'get',
     response: config => {
+      debugger;
       const { token } = config.query
-      const info = users[token]
+      const info = users["admin-token"]
 
       // mock error
       if (!info) {
         return {
-          code: 50008,
+          status: 999,
           message: 'Login failed, unable to get user details.'
         }
       }
 
       return {
-        code: 20000,
+        status: 200,
         data: info
       }
     }
@@ -76,7 +77,7 @@ export default [
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        status: 200,
         data: 'success'
       }
     }
