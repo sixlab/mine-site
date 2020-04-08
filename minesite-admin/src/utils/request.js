@@ -21,6 +21,10 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
+    if (config.url.startsWith('-dev/')) {
+      config.url = config.url.substr(4)
+      config.baseURL = '/api-dev'
+    }
     return config
   },
   error => {
