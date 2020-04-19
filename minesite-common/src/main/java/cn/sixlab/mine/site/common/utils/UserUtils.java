@@ -12,16 +12,20 @@ import java.util.Date;
 public class UserUtils {
     private static String TOKEN_KEY = "MS_USER";
 
+    public static String loginedUsername() {
+        return loginedUser().getUsername();
+    }
+
     public static Integer loginedUserId() {
-        return readTokenUser().getId();
+        return loginedUser().getId();
     }
 
-    public static MsUser readTokenUser() {
-        String token = readToken();
-        return readTokenUser(token);
+    public static MsUser loginedUser() {
+        String token = currentToken();
+        return loginedUser(token);
     }
 
-    public static MsUser readTokenUser(String token) {
+    public static MsUser loginedUser(String token) {
         try {
             String subject = Jwts.parser()
                     .setSigningKey(signKey())
@@ -42,12 +46,12 @@ public class UserUtils {
     }
 
     public static boolean isLogin() {
-        String token = readToken();
+        String token = currentToken();
         return isLogin(token);
     }
 
     public static boolean isLogin(String token) {
-        MsUser msUser = readTokenUser(token);
+        MsUser msUser = loginedUser(token);
         return msUser != null;
     }
 
@@ -79,7 +83,7 @@ public class UserUtils {
         WebUtils.addCookie(TOKEN_KEY, token, expire());
     }
 
-    public static String readToken() {
+    public static String currentToken() {
         HttpServletRequest request = WebUtils.getRequest();
 
         // 先读取 request 防 cookie 缓存

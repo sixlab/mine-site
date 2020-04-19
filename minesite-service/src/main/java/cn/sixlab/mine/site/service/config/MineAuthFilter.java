@@ -23,10 +23,10 @@ public class MineAuthFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
-        String token = UserUtils.readToken();
+        String token = UserUtils.currentToken();
 
         if (StringUtils.isNotEmpty(token) && UserUtils.isLogin(token)) {
-            MsUser msUser = UserUtils.readTokenUser(token);
+            MsUser msUser = UserUtils.loginedUser(token);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(msUser,
                     null, new ArrayList<>());
 
