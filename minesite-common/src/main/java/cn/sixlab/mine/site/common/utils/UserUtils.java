@@ -20,7 +20,7 @@ public class UserUtils {
         return loginedUser().getId();
     }
 
-    public static MsUser loginedUser() {
+    private static MsUser loginedUser() {
         String token = currentToken();
         return loginedUser(token);
     }
@@ -61,19 +61,22 @@ public class UserUtils {
     }
 
     public static String login(MsUser msUser) {
-        msUser.setPassword(null);
-        String token = createToken(JsonUtils.toJson(msUser));
+        MsUser tokenInfo = new MsUser();
+        tokenInfo.setId(msUser.getId());
+        tokenInfo.setUsername(msUser.getUsername());
+
+        String token = createToken(JsonUtils.toJson(tokenInfo));
 
         writeToken(token);
 
         return token;
     }
 
-    private static String createToken(String username) {
+    private static String createToken(String tokenJson) {
         Date expiration = new Date(System.currentTimeMillis() + expire() * 1000 + 60000);
 
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(tokenJson)
                 .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS512, signKey())
                 .compact();

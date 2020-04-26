@@ -21,8 +21,8 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/info")
     public ResultJson info() {
-        MsUser user = UserUtils.loginedUser();
-        user.setPassword(null);
-        return ResultJson.successData(user);
+        Integer userId = UserUtils.loginedUserId();
+        MsUser msUser = service.loadUserById(userId);
+        return ResultJson.successData(msUser);
     }
 }

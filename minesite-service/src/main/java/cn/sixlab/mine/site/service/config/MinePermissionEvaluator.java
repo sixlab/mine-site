@@ -17,8 +17,8 @@ public class MinePermissionEvaluator implements PermissionEvaluator {
     @Autowired
     private MsUserDao msUserDao;
 
-    @Value("${minesite.username}")
-    private String username;
+    @Value("${minesite.admin.prefix}")
+    private String prefix;
 
     @Override
     public boolean hasPermission(Authentication authentication, Object adminAuth, Object userAuth) {
@@ -31,15 +31,15 @@ public class MinePermissionEvaluator implements PermissionEvaluator {
             String adminAuthCode = String.valueOf(adminAuth);
             String userAuthCode = String.valueOf(userAuth);
 
-            if(StringUtils.isEmpty(adminAuthCode) && StringUtils.isEmpty(adminAuthCode)){
+            if(StringUtils.isEmpty(adminAuthCode) && StringUtils.isEmpty(userAuthCode)){
                 return true;
             }
 
-            if(msUser.getUsername().startsWith(username+"-")){
+            if (msUser.getUsername().startsWith(prefix)) {
                 // 管理员
                 if (StringUtils.isEmpty(adminAuthCode) || "permitAll".equals(adminAuthCode)) {
                     return true;
-                } else if ("denyAll".equals(userAuthCode)) {
+                } else if ("denyAll".equals(adminAuthCode)) {
                     return false;
                 } else {
                     String[] codes = StringUtils.split(adminAuthCode, ",");
@@ -47,7 +47,6 @@ public class MinePermissionEvaluator implements PermissionEvaluator {
 
                     return i > 0;
                 }
-
             }else{
                 // 普通用户
                 if (StringUtils.isEmpty(userAuthCode) || "permitAll".equals(userAuthCode)) {

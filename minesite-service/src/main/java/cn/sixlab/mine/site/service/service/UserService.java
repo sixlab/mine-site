@@ -1,8 +1,9 @@
 package cn.sixlab.mine.site.service.service;
 
+import cn.sixlab.mine.site.common.vo.LoginUser;
+import cn.sixlab.mine.site.common.vo.MineAuthority;
 import cn.sixlab.mine.site.data.dao.MsUserDao;
 import cn.sixlab.mine.site.data.models.MsUser;
-import cn.sixlab.mine.site.common.vo.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +24,13 @@ public class UserService implements UserDetailsService {
         }
         LoginUser loginUser = new LoginUser();
         loginUser.setMsUser(msUser);
+        loginUser.setRoles(MineAuthority.roles(msUser.getRole()));
         return loginUser;
+    }
+
+    public MsUser loadUserById(Integer userId){
+        MsUser msUser = userDao.getOne(userId);
+        msUser.setPassword(null);
+        return msUser;
     }
 }

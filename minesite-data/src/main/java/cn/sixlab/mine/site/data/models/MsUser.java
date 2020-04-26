@@ -28,5 +28,8 @@ public class MsUser {
 
     @Column(length = 100)
     private String password;
+
+    @Column(length = 10)
+    private String role;
     
 }

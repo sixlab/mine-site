@@ -13,7 +13,8 @@ logging:
   config: classpath:logback-files.xml
 
 minesite:
-  username: admin
+  admin:
+    prefix: "admin-"
   druid:
     key: root
     username: druid

@@ -9,6 +9,7 @@ public interface MsUserDao extends JpaRepository<MsUser, Integer> {
 
     MsUser findByUsername(String username);
 
+    // @Cacheable
     @Query(" select count(ur.id) from MsUserRole ur,MsRoleAuth ra, MsAuth a" +
             " where ur.roleId = ra.roleId " +
             " and ur.userId = :userId " +

@@ -1,15 +1,27 @@
 package cn.sixlab.mine.site.common.vo;
 
-import cn.sixlab.mine.site.data.models.MsRole;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class MineAuthority implements GrantedAuthority {
-    private MsRole msRole;
+    private String role;
 
     @Override
     public String getAuthority() {
-        return msRole.getRoleName();
+        return role;
+    }
+
+    public static List<MineAuthority> roles(String role){
+        MineAuthority authority = new MineAuthority();
+        authority.setRole(role);
+
+        List<MineAuthority> roles = new ArrayList<>();
+        roles.add(authority);
+
+        return roles;
     }
 }
