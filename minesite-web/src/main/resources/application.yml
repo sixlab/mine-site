@@ -24,13 +24,19 @@ spring:
   mvc:
     static-path-pattern: /static/**
   jackson:
+    default-property-inclusion: non_null
     serialization:
       write-dates-as-timestamps: true
+      fail_on_empty_beans: false
+    deserialization:
+      fail_on_unknown_properties: false
+
   #  freemarker:
   #    suffix: .ftl
   #    prefer-file-system-access: false
   #    settings:
   #      number_format: 0.##
+
   aop:
     auto: true
   messages:
