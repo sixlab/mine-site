@@ -1,35 +1,78 @@
 package cn.sixlab.mine.site.data.models;
 
-import lombok.Data;
-
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Data
-@Table(
-        uniqueConstraints = {@UniqueConstraint(columnNames = "username")}
-)
-public class MsUser {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MsUser implements Serializable {
     private Integer id;
+
+    private String username;
+
+    private String nickname;
+
+    private String password;
+
+    private String role;
 
     private Integer status;
 
     private Date createTime;
 
-    @Column(length = 30)
-    private String username;
+    private static final long serialVersionUID = 1L;
 
-    @Column(length = 30)
-    private String nickname;
+    public Integer getId() {
+        return id;
+    }
 
-    @Column(length = 100)
-    private String password;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    @Column(length = 10)
-    private String role;
-    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }

@@ -41,11 +41,6 @@ spring:
     auto: true
   messages:
     basename: i18n/message
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
-    show-sql: true
-    hibernate:
-      ddl-auto: update
   datasource:
     # com.alibaba.druid.filter.config.ConfigTools.main(new String[]{"password"})
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -85,3 +80,6 @@ spring:
       web-stat-filter:
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
         url-pattern: "/*"
+
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml

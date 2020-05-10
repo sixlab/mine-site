@@ -1,7 +1,8 @@
 package cn.sixlab.mine.site.service.config;
 
-import cn.sixlab.mine.site.data.dao.MsUserDao;
+import cn.sixlab.mine.site.data.mapper.MsUserMapper;
 import cn.sixlab.mine.site.data.models.MsUser;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 public class MinePermissionEvaluator implements PermissionEvaluator {
 
     @Autowired
-    private MsUserDao msUserDao;
+    private MsUserMapper userMapper;
 
     @Value("${minesite.admin.prefix}")
     private String prefix;
@@ -43,9 +44,9 @@ public class MinePermissionEvaluator implements PermissionEvaluator {
                     return false;
                 } else {
                     String[] codes = StringUtils.split(adminAuthCode, ",");
-                    int i = msUserDao.countUserRole(userId, codes);
+                    MsUser user = userMapper.selectByPrimaryKey(userId);
 
-                    return i > 0;
+                    return ArrayUtils.contains(codes, user.getRole());
                 }
             }else{
                 // 普通用户
