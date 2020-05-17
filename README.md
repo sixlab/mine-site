@@ -2,12 +2,12 @@
 
 # 1. 简介
 
-基于 Spring Boot 开发的网站脚手架。
+基于 Spring Boot 开发的网站
 
 后端技术栈：
 * Spring Boot
 * Spring Security
-* Spring Data JPA
+* MyBatis
 * lombok
 * okhttp
 * mysql

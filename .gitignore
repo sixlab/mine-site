@@ -147,3 +147,5 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
+application-prod.yml
+gen
