@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.schedule;
 
-import cn.sixlab.datastrend.service.JdGoldService;
+import cn.sixlab.mine.site.service.service.JdGoldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

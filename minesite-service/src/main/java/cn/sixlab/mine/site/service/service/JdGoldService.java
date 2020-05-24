@@ -31,6 +31,9 @@ public class JdGoldService {
     @Autowired
     private MsNotifyConfigMapper notifyConfigDao;
 
+    @Autowired
+    private DingTalkService dingTalkService;
+
     public void daily() {
         String apiUrl = "https://ms.jr.jd.com/gw/generic/hj/h5/m/latestPrice";
 
@@ -56,7 +59,7 @@ public class JdGoldService {
             builder.append(timeStr);
             builder.append("\n访问：https://datastrend.com/api/gold/index\n");
 
-            DingTalk.sendText(builder.toString());
+            dingTalkService.sendText(builder.toString());
         }
     }
 
@@ -98,7 +101,7 @@ public class JdGoldService {
                 builder.append(price.toPlainString());
                 builder.append("\n访问：https://datastrend.com/api/gold/index\n");
 
-                DingTalk.sendText(builder.toString());
+                dingTalkService.sendText(builder.toString());
             } else {
                 List<MsNotifyConfig> configList = notifyConfigDao.queryAllByCode(CODE);
 
@@ -112,7 +115,7 @@ public class JdGoldService {
                             builder.append(timeStr);
                             builder.append("\n访问：https://datastrend.com/api/gold/index\n");
 
-                            DingTalk.sendText(builder.toString());
+                            dingTalkService.sendText(builder.toString());
 
                             break;
                         }
