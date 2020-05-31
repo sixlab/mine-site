@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sixlab.mine.site.data.mapper.VodInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.sixlab.mine.site.data.models.VodInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vod_name" jdbcType="VARCHAR" property="vodName" />
+    <result column="vod_group" jdbcType="VARCHAR" property="vodGroup" />
+    <result column="vod_pic" jdbcType="VARCHAR" property="vodPic" />
+    <result column="vod_area" jdbcType="VARCHAR" property="vodArea" />
+    <result column="vod_lang" jdbcType="VARCHAR" property="vodLang" />
+    <result column="vod_year" jdbcType="VARCHAR" property="vodYear" />
+    <result column="vod_actor" jdbcType="VARCHAR" property="vodActor" />
+    <result column="vod_director" jdbcType="VARCHAR" property="vodDirector" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.sixlab.mine.site.data.models.VodInfo">
+    <result column="vod_intro" jdbcType="LONGVARCHAR" property="vodIntro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, vod_name, vod_group, vod_pic, vod_area, vod_lang, vod_year, vod_actor, vod_director, 
+    update_time, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    vod_intro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from vod_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from vod_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.sixlab.mine.site.data.models.VodInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into vod_info (vod_name, vod_group, vod_pic, 
+      vod_area, vod_lang, vod_year, 
+      vod_actor, vod_director, update_time, 
+      create_time, vod_intro)
+    values (#{vodName,jdbcType=VARCHAR}, #{vodGroup,jdbcType=VARCHAR}, #{vodPic,jdbcType=VARCHAR}, 
+      #{vodArea,jdbcType=VARCHAR}, #{vodLang,jdbcType=VARCHAR}, #{vodYear,jdbcType=VARCHAR}, 
+      #{vodActor,jdbcType=VARCHAR}, #{vodDirector,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{vodIntro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sixlab.mine.site.data.models.VodInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into vod_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vodName != null">
+        vod_name,
+      </if>
+      <if test="vodGroup != null">
+        vod_group,
+      </if>
+      <if test="vodPic != null">
+        vod_pic,
+      </if>
+      <if test="vodArea != null">
+        vod_area,
+      </if>
+      <if test="vodLang != null">
+        vod_lang,
+      </if>
+      <if test="vodYear != null">
+        vod_year,
+      </if>
+      <if test="vodActor != null">
+        vod_actor,
+      </if>
+      <if test="vodDirector != null">
+        vod_director,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="vodIntro != null">
+        vod_intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vodName != null">
+        #{vodName,jdbcType=VARCHAR},
+      </if>
+      <if test="vodGroup != null">
+        #{vodGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="vodPic != null">
+        #{vodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="vodArea != null">
+        #{vodArea,jdbcType=VARCHAR},
+      </if>
+      <if test="vodLang != null">
+        #{vodLang,jdbcType=VARCHAR},
+      </if>
+      <if test="vodYear != null">
+        #{vodYear,jdbcType=VARCHAR},
+      </if>
+      <if test="vodActor != null">
+        #{vodActor,jdbcType=VARCHAR},
+      </if>
+      <if test="vodDirector != null">
+        #{vodDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vodIntro != null">
+        #{vodIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sixlab.mine.site.data.models.VodInfo">
+    update vod_info
+    <set>
+      <if test="vodName != null">
+        vod_name = #{vodName,jdbcType=VARCHAR},
+      </if>
+      <if test="vodGroup != null">
+        vod_group = #{vodGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="vodPic != null">
+        vod_pic = #{vodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="vodArea != null">
+        vod_area = #{vodArea,jdbcType=VARCHAR},
+      </if>
+      <if test="vodLang != null">
+        vod_lang = #{vodLang,jdbcType=VARCHAR},
+      </if>
+      <if test="vodYear != null">
+        vod_year = #{vodYear,jdbcType=VARCHAR},
+      </if>
+      <if test="vodActor != null">
+        vod_actor = #{vodActor,jdbcType=VARCHAR},
+      </if>
+      <if test="vodDirector != null">
+        vod_director = #{vodDirector,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vodIntro != null">
+        vod_intro = #{vodIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.sixlab.mine.site.data.models.VodInfo">
+    update vod_info
+    set vod_name = #{vodName,jdbcType=VARCHAR},
+      vod_group = #{vodGroup,jdbcType=VARCHAR},
+      vod_pic = #{vodPic,jdbcType=VARCHAR},
+      vod_area = #{vodArea,jdbcType=VARCHAR},
+      vod_lang = #{vodLang,jdbcType=VARCHAR},
+      vod_year = #{vodYear,jdbcType=VARCHAR},
+      vod_actor = #{vodActor,jdbcType=VARCHAR},
+      vod_director = #{vodDirector,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      vod_intro = #{vodIntro,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sixlab.mine.site.data.models.VodInfo">
+    update vod_info
+    set vod_name = #{vodName,jdbcType=VARCHAR},
+      vod_group = #{vodGroup,jdbcType=VARCHAR},
+      vod_pic = #{vodPic,jdbcType=VARCHAR},
+      vod_area = #{vodArea,jdbcType=VARCHAR},
+      vod_lang = #{vodLang,jdbcType=VARCHAR},
+      vod_year = #{vodYear,jdbcType=VARCHAR},
+      vod_actor = #{vodActor,jdbcType=VARCHAR},
+      vod_director = #{vodDirector,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

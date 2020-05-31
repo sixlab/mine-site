@@ -24,38 +24,22 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="cn.sixlab.mine.site.data.models" targetProject="dist">
+        <javaModelGenerator targetPackage="cn.sixlab.mine.site.data.models" targetProject="PPH/dist">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-
         <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="mapper" targetProject="dist">
+        <sqlMapGenerator targetPackage="mapper" targetProject="PPH/dist">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
 
-
         <!-- 生成DAO的包名和位置-->
         <javaClientGenerator targetPackage="cn.sixlab.mine.site.data.mapper" type="XMLMAPPER"
-                             targetProject="dist">
+                             targetProject="PPH/dist">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-
-
-        <table tableName="ms_notify_config" domainObjectName="MsNotifyConfig" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="ms_data" domainObjectName="MsData" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
-        </table>
-
     </context>
 </generatorConfiguration>
