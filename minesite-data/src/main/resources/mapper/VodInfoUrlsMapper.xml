@@ -142,4 +142,22 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="insertList">
+    insert into vod_info_urls (info_id, player_code, player_name,
+    vod_remarks, status, create_time,
+    vod_urls)
+    values
+    <foreach collection="urls" item="item" open="(" close="" separator=",">
+      (
+         #{infoId,jdbcType=INTEGER},
+         #{item.playerCode,jdbcType=VARCHAR},
+         #{item.playerName,jdbcType=VARCHAR},
+         #{item.vodRemarks,jdbcType=VARCHAR},
+         #{item.status,jdbcType=INTEGER},
+         now(),
+         #{item.vodUrls,jdbcType=LONGVARCHAR}
+       )
+    </foreach>
+  </insert>
 </mapper>

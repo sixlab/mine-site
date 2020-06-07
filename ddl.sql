@@ -96,7 +96,7 @@ create table vod_info_urls
     player_code varchar(20)   null comment '播放器code',
     player_name varchar(20)   null comment '播放器名字',
     vod_remarks varchar(100)  null comment '进度标记',
-    vod_urls    text          null comment '链接 json，key是集，val是链接',
+    vod_urls    text          null comment '链接字符串，ep1$link1#ep2$link2',
     status      int default 0 not null comment '状态,0-禁用，1-启用',
     create_time datetime(6)   null comment '创建时间'
 )

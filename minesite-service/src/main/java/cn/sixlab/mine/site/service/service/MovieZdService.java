@@ -1,12 +1,13 @@
 package cn.sixlab.mine.site.service.service;
 
+import cn.sixlab.mine.site.service.api.MovieService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MovieZdService {
+public class MovieZdService extends MovieService {
 
-    public void daily() {
+    @Override
+    protected void init() {
 
     }
-
 }

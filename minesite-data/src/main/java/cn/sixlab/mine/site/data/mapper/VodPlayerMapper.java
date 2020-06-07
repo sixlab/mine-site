@@ -1,6 +1,8 @@
 package cn.sixlab.mine.site.data.mapper;
 
 import cn.sixlab.mine.site.data.models.VodPlayer;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface VodPlayerMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +16,9 @@ public interface VodPlayerMapper {
     int updateByPrimaryKeySelective(VodPlayer record);
 
     int updateByPrimaryKey(VodPlayer record);
+
+    @Select(" select * " +
+            " from vod_player " +
+            " where player_code = #{playerCode,jdbcType=VARCHAR} ")
+    VodPlayer selectByCode(@Param("playerCode") String playerCode);
 }
