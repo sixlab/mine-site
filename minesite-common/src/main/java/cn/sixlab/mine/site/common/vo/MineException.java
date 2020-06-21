@@ -1,5 +1,7 @@
 package cn.sixlab.mine.site.common.vo;
 
+import cn.sixlab.mine.site.common.utils.Err;
+
 public class MineException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
@@ -17,6 +19,7 @@ public class MineException extends RuntimeException {
 
     public MineException(String msg) {
         super(msg);
+        this.code = Err.EXCEPTION;
         this.msg = msg;
     }
 

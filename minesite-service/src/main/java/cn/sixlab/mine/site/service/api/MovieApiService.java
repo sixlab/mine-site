@@ -52,6 +52,10 @@ public abstract class MovieApiService {
     public void hour(String hour) {
         VodSite vodSite = siteMapper.selectByCode(siteCode());
 
+        if(null==vodSite){
+            return;
+        }
+
         if (vodSite.getPage() > 0) {
             log.error(vodSite.getPage() + "页正在处理，开始时间:" + vodSite.getBeginTime());
             // TODO 警报

@@ -1,0 +1,33 @@
+###   groupRelate
+POST http://localhost:8080/api/movie/add
+Content-Type: application/json
+
+{
+  "siteName": "Ok资源网",
+  "siteCode": "ok",
+  "siteType": "xml",
+  "siteUrl": "https://cj.okzy.tv/inc/api1s_subname.php"
+}
+
+###  "OK ②"   ckm3u8
+POST http://localhost:8080/api/movie/player/add
+Content-Type: application/json
+
+{
+  "siteCode": "ok",
+  "playerCode": "kuyun",
+  "playerName": "OK ①"
+}
+
+###
+POST http://localhost:8080/api/movie/group/add
+Content-Type: application/json
+
+{
+  "groupName": "国产剧"
+}
+
+###
+POST http://localhost:8080/api/movie/init
+Content-Type: application/x-www-form-urlencoded
+
