@@ -3,19 +3,17 @@ package cn.sixlab.mine.site.service.service;
 import cn.sixlab.mine.site.common.utils.Ctx;
 import cn.sixlab.mine.site.common.utils.Err;
 import cn.sixlab.mine.site.common.vo.MineException;
-import cn.sixlab.mine.site.data.mapper.VodGroupMapper;
-import cn.sixlab.mine.site.data.mapper.VodPlayerMapper;
-import cn.sixlab.mine.site.data.mapper.VodSiteMapper;
-import cn.sixlab.mine.site.data.models.VodGroup;
-import cn.sixlab.mine.site.data.models.VodPlayer;
-import cn.sixlab.mine.site.data.models.VodSite;
+import cn.sixlab.mine.site.data.mapper.*;
+import cn.sixlab.mine.site.data.models.*;
 import cn.sixlab.mine.site.service.api.MovieApiService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovieService {
@@ -23,9 +21,15 @@ public class MovieService {
     @Autowired
     private VodSiteMapper siteMapper;
     @Autowired
+    private VodInfoMapper infoMapper;
+    @Autowired
+    private VodInfoUrlsMapper urlsMapper;
+    @Autowired
     private VodGroupMapper groupMapper;
     @Autowired
     private VodPlayerMapper playerMapper;
+    @Autowired
+    private VodUserStarMapper userStarMapper;
 
     public void init() {
         List<VodSite> siteList = siteMapper.selectInit();
@@ -102,5 +106,52 @@ public class MovieService {
         toUpdate.setGroupName(group.getGroupName());
 
         groupMapper.updateByPrimaryKeySelective(toUpdate);
+    }
+
+    public void addStar(Integer userId, Integer infoId) {
+        VodInfo info = infoMapper.selectByPrimaryKey(infoId);
+
+        if (null == info) {
+            throw new MineException(Err.ERR_NOT_EXIST, "数据不存在");
+        }
+
+        VodUserStar userStar = userStarMapper.selectExist(userId, infoId);
+        if (null == userStar) {
+            userStar = new VodUserStar();
+            userStar.setUserId(userId);
+            userStar.setInfoId(infoId);
+            userStar.setVodName(info.getVodName());
+            userStar.setVodPic(info.getVodPic());
+            userStar.setCreateTime(new Date());
+            userStarMapper.insert(userStar);
+        } else {
+            throw new MineException(Err.ERR_EXIST, "已存在");
+        }
+    }
+
+    public void delStar(Integer userId, Integer infoId) {
+        userStarMapper.delExist(userId, infoId);
+    }
+
+    public List<VodUserStar> listStar(Integer userId) {
+        return userStarMapper.selectByUserId(userId);
+    }
+
+    public Map<String,Object> info(Integer infoId) {
+        VodInfo info = infoMapper.selectByPrimaryKey(infoId);
+
+        if (null == info) {
+            throw new MineException(Err.ERR_NOT_EXIST, "数据不存在");
+        }
+
+        List<VodInfoUrls> urlsList = urlsMapper.selectByInfoId(infoId);
+        List<VodPlayer> playerList = playerMapper.selectEnable();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("info", info);
+        data.put("urlList", urlsList);
+        data.put("playerList", playerList);
+
+        return data;
     }
 }

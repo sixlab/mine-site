@@ -32,11 +32,19 @@
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
 
-            <#list level1 as item>
-                <li class="nav-item d-none d-sm-inline-block<#if item.id == topId> active</#if>">
-                    <a href="${item.menuPath}" class="nav-link">${item.menuName}</a>
-                </li>
-            </#list>
+            <#-- TODO 顶部菜单 <#if path?starts_with("/api/test/")> active</#if> -->
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/api/" class="nav-link">后台首页</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block<#if path?starts_with("/api/test/")> active</#if>">
+                <a href="/api/i/" class="nav-link">个人中心</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block<#if path?starts_with("/api/test/")> active</#if>">
+                <a href="/api/test/" class="nav-link">后台首页</a>
+            </li>
         </ul>
 
         <!-- SEARCH FORM -->
@@ -134,52 +142,51 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
 
-                <#list level2 as parent>
-
-                    <#if parent.isLeaf>
-                        <li class="nav-item ">
-                            <a href="${parent.menuPath}" class="nav-link">
-                                <#--fa-th-->
-                                <i class="nav-icon fas ${parent.menuIcon}"></i>
-                                <p>
-                                    ${parent.menuName}
-                                    <#--<span class="right badge badge-danger">New</span>-->
-                                </p>
-                            </a>
-                        </li>
-                    <#else>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    ${parent.menuName}
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-
-                                <#list level3 as child>
-                                    <li class="nav-item">
-                                        <a href="${parent.menuPath}" class="nav-link">
-                                            <#--fa-th-->
-                                            <i class="nav-icon fas ${parent.menuIcon}"></i>
-                                            <p>
-                                                ${parent.menuName}
-                                                <#--<span class="right badge badge-danger">New</span>-->
-                                            </p>
-                                        </a>
-                                    </li>
-                                </#list>
-
-                            </ul>
-                        </li>
-                    </#if>
-
-                </#list>
+                <#-- TODO 侧边菜单 <#if path = "/api/test/"> active</#if> -->
+                <@MenuItem menuName="测试0" menuUri="/api/test/" />
+                <@MenuItem menuName="测试abc" menuUri="/api/test/abc" />
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
+</#macro>
+
+<#macro MenuItem menuUri="" menuName="">
+    <li class="nav-item">
+        <a href="${menuUri}" class="nav-link <#if path = menuUri> active</#if>">
+            <#--fa-th-->
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+                ${menuName}
+                <#--<span class="right badge badge-danger">New</span>-->
+            </p>
+        </a>
+    </li>
+</#macro>
+
+<#macro subMenu>
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+                ${parent.menuName}
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <!-- 叶子 -->
+            <li class="nav-item">
+                <a href="${parent.menuPath}" class="nav-link">
+                    <#--fa-th-->
+                    <i class="nav-icon fas ${parent.menuIcon}"></i>
+                    <p>
+                        ${parent.menuName}
+                        <#--<span class="right badge badge-danger">New</span>-->
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </li>
 </#macro>
 
 

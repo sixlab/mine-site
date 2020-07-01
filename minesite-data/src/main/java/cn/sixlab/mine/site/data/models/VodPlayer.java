@@ -12,6 +12,10 @@ public class VodPlayer implements Serializable {
 
     private String playerName;
 
+    private String playerType;
+
+    private Integer weight;
+
     private Integer status;
 
     private Date createTime;
@@ -48,6 +52,22 @@ public class VodPlayer implements Serializable {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName == null ? null : playerName.trim();
+    }
+
+    public String getPlayerType() {
+        return playerType;
+    }
+
+    public void setPlayerType(String playerType) {
+        this.playerType = playerType == null ? null : playerType.trim();
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public Integer getStatus() {

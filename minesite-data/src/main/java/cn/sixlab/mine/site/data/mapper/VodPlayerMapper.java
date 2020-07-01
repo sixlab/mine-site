@@ -4,6 +4,8 @@ import cn.sixlab.mine.site.data.models.VodPlayer;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 public interface VodPlayerMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -21,4 +23,11 @@ public interface VodPlayerMapper {
             " from vod_player " +
             " where player_code = #{playerCode,jdbcType=VARCHAR} ")
     VodPlayer selectByCode(@Param("playerCode") String playerCode);
+
+    @Select(" select * " +
+            " from vod_player " +
+            " where status = 1" +
+            " order by weight ")
+    List<VodPlayer> selectEnable();
+
 }

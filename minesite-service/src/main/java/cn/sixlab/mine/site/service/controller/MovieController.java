@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 @Slf4j
 @Controller
 @RequestMapping("/movie")
@@ -27,6 +29,15 @@ public class MovieController {
         service.init();
 
         return ResultJson.success();
+    }
+
+    @ResponseBody
+    @RequestMapping("/info")
+    public ResultJson info(Integer infoId) {
+
+        Map<String, Object> data = service.info(infoId);
+
+        return ResultJson.successData(data);
     }
 
     @ResponseBody

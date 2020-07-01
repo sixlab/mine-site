@@ -29,4 +29,9 @@ public interface VodInfoUrlsMapper {
             " and player_code = #{playerCode,jdbcType=VARCHAR} " +
             " limit 1 ")
     VodInfoUrls selectPlayerUrl(@Param("infoId") Integer infoId, @Param("playerCode") String playerCode);
+
+    @Select(" select * " +
+            " from vod_info_urls " +
+            " where info_id = #{infoId,jdbcType=INTEGER} ")
+    List<VodInfoUrls> selectByInfoId(@Param("infoId") Integer infoId);
 }

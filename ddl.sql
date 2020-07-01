@@ -65,9 +65,9 @@ create table vod_info
 (
     id           int auto_increment
         primary key,
-    vod_name     varchar(10)  null comment '名字',
+    vod_name     varchar(200) null comment '名字',
     vod_group    varchar(20)  null comment '分组',
-    vod_pic      varchar(10)  null comment '图片',
+    vod_pic      varchar(200) null comment '图片',
     vod_area     varchar(20)  null comment '区域',
     vod_lang     varchar(10)  null comment '语言',
     vod_year     varchar(10)  null comment '年份',
@@ -118,6 +118,8 @@ create table vod_player
     site_code   varchar(10)   null comment '配置code',
     player_code varchar(20)   null comment '播放器code',
     player_name varchar(20)   null comment '播放器名字',
+    player_type varchar(10)   null comment '播放器类型',
+    weight      int           null comment '顺序',
     status      int default 0 not null comment '0-禁用，1-启用',
     create_time datetime(6)   null comment '创建时间'
 )
@@ -128,6 +130,9 @@ create index vod_player_player_code_index
 
 create index vod_player_player_code_site_code_index
     on vod_player (player_code, site_code);
+
+create index vod_player_status_weight_index
+    on vod_player (status, weight);
 
 create table vod_site
 (
@@ -147,3 +152,22 @@ create table vod_site
         unique (site_code)
 )
     comment '数据源配置';
+
+create table vod_user_star
+(
+    id          int auto_increment
+        primary key,
+    user_id     int          null comment '用户 的 id',
+    info_id     int          null comment 'vod_info 的 id',
+    vod_name    varchar(200) null comment '名字',
+    vod_pic     varchar(200) null comment '图片',
+    create_time datetime(6)  null comment '创建时间'
+)
+    comment '数据';
+
+create index vod_user_star_user_id_index
+    on vod_user_star (user_id);
+
+create index vod_user_star_user_id_info_id_index
+    on vod_user_star (user_id, info_id);
+

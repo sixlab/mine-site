@@ -1,13 +1,12 @@
 server:
   port: 8080
 spring:
+  freemarker:
+    cache: false
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/minesite?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: root
     password: YvrnbfRTMXY0YCaVtjef6q2vTwM4sSJg4IyBMiap1Sw37KMuBiSnOpB5bNnt6RxFkWjzV27ZEOuyxn5A6zAZCg==
-
-#  freemarker:
-#    cache: false
 
 logging:
   config: classpath:logback-console.xml

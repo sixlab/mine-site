@@ -1,7 +1,5 @@
 package cn.sixlab.mine.site.service.controller;
 
-import cn.sixlab.mine.site.service.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +8,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class IndexController {
 
-    @Autowired
-    private UserService menuService;
-
     @RequestMapping(value = {"/", "/index"})
     public String index(ModelMap model) {
+
+        return "index";
+    }
+
+    @RequestMapping(value = "/test")
+    public String test(ModelMap model) {
+
+        return "index";
+    }
+
+    @RequestMapping(value = "/test/")
+    public String test0(ModelMap model) {
+
+        return "index";
+    }
+
+    @RequestMapping(value = "/test/abc")
+    public String test1(ModelMap model) {
 
         return "index";
     }

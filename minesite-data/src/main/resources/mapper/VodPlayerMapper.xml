@@ -6,11 +6,13 @@
     <result column="site_code" jdbcType="VARCHAR" property="siteCode" />
     <result column="player_code" jdbcType="VARCHAR" property="playerCode" />
     <result column="player_name" jdbcType="VARCHAR" property="playerName" />
+    <result column="player_type" jdbcType="VARCHAR" property="playerType" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, site_code, player_code, player_name, status, create_time
+    id, site_code, player_code, player_name, player_type, weight, status, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,9 +29,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into vod_player (site_code, player_code, player_name, 
-      status, create_time)
+      player_type, weight, status, 
+      create_time)
     values (#{siteCode,jdbcType=VARCHAR}, #{playerCode,jdbcType=VARCHAR}, #{playerName,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+      #{playerType,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.sixlab.mine.site.data.models.VodPlayer">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -45,6 +49,12 @@
       </if>
       <if test="playerName != null">
         player_name,
+      </if>
+      <if test="playerType != null">
+        player_type,
+      </if>
+      <if test="weight != null">
+        weight,
       </if>
       <if test="status != null">
         status,
@@ -62,6 +72,12 @@
       </if>
       <if test="playerName != null">
         #{playerName,jdbcType=VARCHAR},
+      </if>
+      <if test="playerType != null">
+        #{playerType,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -83,6 +99,12 @@
       <if test="playerName != null">
         player_name = #{playerName,jdbcType=VARCHAR},
       </if>
+      <if test="playerType != null">
+        player_type = #{playerType,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -97,6 +119,8 @@
     set site_code = #{siteCode,jdbcType=VARCHAR},
       player_code = #{playerCode,jdbcType=VARCHAR},
       player_name = #{playerName,jdbcType=VARCHAR},
+      player_type = #{playerType,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

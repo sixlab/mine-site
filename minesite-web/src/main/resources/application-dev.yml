@@ -6,12 +6,6 @@ spring:
     username: root
     password: pwd
 
-#  freemarker:
-#    cache: true
-
-logging:
-  config: classpath:logback-files.xml
-
 minesite:
   admin:
     prefix: "admin-"

@@ -1,4 +1,8 @@
-###   groupRelate
+###   groupRelate ku123
+# ku123 http://cj.123ku2.com:12315/inc/api.php
+# zd http://www.zdziyuan.com/inc/api.php http://www.zdziyuan.com/inc/s_api.php
+# ld http://www.leduozy.com/inc/api.php
+# wl http://cj.wlzy.tv/inc/api_mac.php  https://cj.wlzy.tv/inc/s_api_mac.php
 POST http://localhost:8080/api/movie/add
 Content-Type: application/json
 
@@ -30,4 +34,22 @@ Content-Type: application/json
 ###
 POST http://localhost:8080/api/movie/init
 Content-Type: application/x-www-form-urlencoded
+
+###
+POST http://localhost:8080/api/mine/movie/star/add
+Content-Type: application/x-www-form-urlencoded
+
+userId=1&infoId=1
+
+###
+POST http://localhost:8080/api/mine/movie/star/del
+Content-Type: application/x-www-form-urlencoded
+
+userId=1&infoId=1
+
+###
+POST http://localhost:8080/api/mine/movie/star/list
+Content-Type: application/x-www-form-urlencoded
+
+userId=1
 
