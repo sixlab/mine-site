@@ -54,6 +54,8 @@ public class MineExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView handler(HttpServletRequest request, HttpServletResponse response, Exception e) {
+        log.error("ExceptionHandler", e);
+
         MineException mineException = getException(e);
 
         ResultJson result;
