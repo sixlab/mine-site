@@ -1,5 +1,6 @@
-package cn.sixlab.mine.site.service.schedule;
+package cn.sixlab.mine.site.service.config;
 
+import cn.sixlab.mine.site.service.service.JobService;
 import cn.sixlab.mine.site.service.service.movie.MovieOkService;
 import cn.sixlab.mine.site.service.service.movie.MovieZdService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,22 +8,19 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VodJob {
+public class JobConfig {
 
     @Autowired
-    private MovieOkService okService;
+    private JobService service;
 
-    @Autowired
-    private MovieZdService zdService;
-
-    @Scheduled(cron = "0 0 0/1 * * ? ")
-    public void daily(){
-        okService.hour("2");
+    @Scheduled(cron = "0 3 7,19 * * ? ")
+    public void daily() {
+        service.run("jdGoldDailyService");
     }
 
-    @Scheduled(cron = "0 30 0/1 * * ? ")
+    @Scheduled(cron = "0 0/5 * * * ? ")
     public void jdPrice() {
-        zdService.hour("2");
+        service.run("jdGoldIntervalService");
     }
 
 }

@@ -30,7 +30,6 @@ public class Ctx {
     }
 
     public static <T> T getBean(Class<T> clz, String componentName) {
-
         return ctx.getBean(componentName, clz);
     }
 

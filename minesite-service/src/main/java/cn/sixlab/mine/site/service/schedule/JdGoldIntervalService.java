@@ -1,4 +1,4 @@
-package cn.sixlab.mine.site.service.service;
+package cn.sixlab.mine.site.service.schedule;
 
 import cn.sixlab.mine.site.common.utils.HttpUtils;
 import cn.sixlab.mine.site.common.utils.JsonUtils;
@@ -7,6 +7,8 @@ import cn.sixlab.mine.site.data.mapper.MsDataMapper;
 import cn.sixlab.mine.site.data.mapper.MsNotifyConfigMapper;
 import cn.sixlab.mine.site.data.models.MsData;
 import cn.sixlab.mine.site.data.models.MsNotifyConfig;
+import cn.sixlab.mine.site.service.api.Job;
+import cn.sixlab.mine.site.service.service.DingTalkService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -22,7 +24,7 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class JdGoldService {
+public class JdGoldIntervalService implements Job {
     private static String CODE = "jdGold";
 
     @Autowired
@@ -34,36 +36,8 @@ public class JdGoldService {
     @Autowired
     private DingTalkService dingTalkService;
 
-    public void daily() {
-        String apiUrl = "https://ms.jr.jd.com/gw/generic/hj/h5/m/latestPrice";
-
-        Map<String, String> header = new HashMap<>();
-        header.put("host", "ms.jr.jd.com");
-        header.put("referer", "https://m.jdjygold.com/finance-gold/msjgold/homepage?orderSource=7");
-
-        ResultJson resultJson = HttpUtils.sendGet(apiUrl, null, header);
-        if (resultJson.isSuccess()) {
-            Map map = JsonUtils.toBean(resultJson.getMessage(), Map.class);
-
-            Map resultData = MapUtils.getMap(map, "resultData");
-            Map datas = MapUtils.getMap(resultData, "datas");
-
-            Date time = new Date(MapUtils.getLong(datas, "time"));
-            String timeStr = DateFormatUtils.format(time, "yyyy-MM-dd HH:mm:ss");
-            BigDecimal price = new BigDecimal(MapUtils.getString(datas, "price"));
-
-            StringBuilder builder = new StringBuilder();
-            builder.append("\n价格：");
-            builder.append(price.toPlainString());
-            builder.append("\n日期：");
-            builder.append(timeStr);
-            builder.append("\n访问：https://datastrend.com/api/gold/index\n");
-
-            dingTalkService.sendText(builder.toString());
-        }
-    }
-
-    public void intrival() {
+    @Override
+    public void run() {
         MsData lastData = dataDao.selectFirstByCode(CODE);
 
         String apiUrl = "https://ms.jr.jd.com/gw/generic/hj/h5/m/latestPrice";
