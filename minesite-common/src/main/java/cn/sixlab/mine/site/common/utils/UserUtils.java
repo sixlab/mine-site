@@ -1,92 +1,35 @@
 package cn.sixlab.mine.site.common.utils;
 
+import cn.sixlab.mine.site.data.mapper.MsUserMapper;
 import cn.sixlab.mine.site.data.models.MsUser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.UUID;
 
+@Component
 public class UserUtils {
-    private static String TOKEN_KEY = "MS_USER";
+    private String TOKEN_KEY = "MS_USER";
 
-    public static String loginedUsername() {
-        return loginedUser().getUsername();
+    @Autowired
+    private MsUserMapper userMapper;
+
+    @Value("${minesite.login.seconds}")
+    private int expire;
+
+    public String createToken(MsUser user) {
+        String uuid = UUID.randomUUID().toString();
+
+        userMapper.updateToken(user.getId(), uuid, expire);
+
+        return uuid;
     }
 
-    public static Integer loginedUserId() {
-        return loginedUser().getId();
-    }
-
-    private static MsUser loginedUser() {
-        String token = currentToken();
-        return loginedUser(token);
-    }
-
-    public static MsUser loginedUser(String token) {
-        try {
-            String subject = Jwts.parser()
-                    .setSigningKey(signKey())
-                    .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
-
-            MsUser msUser = JsonUtils.toBean(subject, MsUser.class);
-
-            if (null != msUser) {
-                return msUser;
-            }
-        } catch (Exception e) {
-
-        }
-
-        return null;
-    }
-
-    public static boolean isLogin() {
-        String token = currentToken();
-        return isLogin(token);
-    }
-
-    public static boolean isLogin(String token) {
-        MsUser msUser = loginedUser(token);
-        return msUser != null;
-    }
-
-    public static void logout() {
-        WebUtils.addCookie(TOKEN_KEY, "", 1);
-        SecurityContextHolder.clearContext();
-    }
-
-    public static String login(MsUser msUser) {
-        MsUser tokenInfo = new MsUser();
-        tokenInfo.setId(msUser.getId());
-        tokenInfo.setUsername(msUser.getUsername());
-
-        String token = createToken(JsonUtils.toJson(tokenInfo));
-
-        writeToken(token);
-
-        return token;
-    }
-
-    private static String createToken(String tokenJson) {
-        Date expiration = new Date(System.currentTimeMillis() + expire() * 1000 + 60000);
-
-        return Jwts.builder()
-                .setSubject(tokenJson)
-                .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS512, signKey())
-                .compact();
-    }
-
-    public static void writeToken(String token) {
-        WebUtils.addCookie(TOKEN_KEY, token, expire());
-    }
-
-    public static String currentToken() {
+    public String currentToken() {
         HttpServletRequest request = WebUtils.getRequest();
 
         // 先读取 request 防 cookie 缓存
@@ -97,17 +40,62 @@ public class UserUtils {
             token = WebUtils.getCookie(TOKEN_KEY);
         } else {
             // 防止 cookie 缓存其他 uuid
-            WebUtils.addCookie(TOKEN_KEY, token, expire());
+            WebUtils.addCookie(TOKEN_KEY, token, expire);
         }
 
         return token;
     }
 
-    private static int expire() {
-        return Integer.valueOf(Ctx.getProperty("minesite.login.seconds"));
+    public MsUser loginedUser() {
+        String token = currentToken();
+        return loginedUser(token);
     }
 
-    private static String signKey() {
-        return Ctx.getProperty("minesite.login.sign");
+    public MsUser loginedUser(String token) {
+        MsUser user = userMapper.selectByToken(token);
+        user.setPassword(null);
+        return user;
     }
+
+    public String loginedUsername() {
+        return loginedUser().getUsername();
+    }
+
+    public Integer loginedUserId() {
+        return loginedUser().getId();
+    }
+
+    public boolean isLogin() {
+        String token = currentToken();
+        return isLogin(token);
+    }
+
+    public boolean isLogin(String token) {
+        MsUser msUser = loginedUser(token);
+        return msUser != null;
+    }
+
+    public void logout() {
+        String token = currentToken();
+
+        if (StringUtils.isNotEmpty(token)) {
+            userMapper.delToken(token);
+        }
+
+        WebUtils.addCookie(TOKEN_KEY, "", 1);
+        SecurityContextHolder.clearContext();
+    }
+
+    public String login(MsUser msUser) {
+        String token = createToken(msUser);
+
+        writeToken(token);
+
+        return token;
+    }
+
+    public void writeToken(String token) {
+        WebUtils.addCookie(TOKEN_KEY, token, expire);
+    }
+
 }

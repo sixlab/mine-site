@@ -16,6 +16,12 @@ public class MsUser implements Serializable {
 
     private Integer status;
 
+    private String token;
+
+    private Date loginTime;
+
+    private Date expireTime;
+
     private Date createTime;
 
     private static final long serialVersionUID = 1L;
@@ -66,6 +72,30 @@ public class MsUser implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 
     public Date getCreateTime() {

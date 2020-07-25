@@ -16,23 +16,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MineAuthFilter extends BasicAuthenticationFilter {
-    public MineAuthFilter(AuthenticationManager authenticationManager) {
+    private UserUtils userUtils;
+
+    public MineAuthFilter(AuthenticationManager authenticationManager, UserUtils userUtils) {
         super(authenticationManager);
+        this.userUtils = userUtils;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
-        String token = UserUtils.currentToken();
+        String token = userUtils.currentToken();
 
-        if (StringUtils.isNotEmpty(token) && UserUtils.isLogin(token)) {
-            MsUser msUser = UserUtils.loginedUser(token);
+        if (StringUtils.isNotEmpty(token) && userUtils.isLogin(token)) {
+            MsUser msUser = userUtils.loginedUser(token);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(msUser,
                     null, new ArrayList<>());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            UserUtils.writeToken(token);
+            userUtils.writeToken(token);
         }
 
         chain.doFilter(request, response);

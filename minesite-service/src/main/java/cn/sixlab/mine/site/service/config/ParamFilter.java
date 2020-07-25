@@ -33,7 +33,6 @@ public class ParamFilter implements Filter {
         String inComeUrI = request.getRequestURI();
 
         result.append(inComeUrI).append(" | ");
-        // result.append(UserUtils.getUsername()).append(" | ");
 
         result.append("\n");
 

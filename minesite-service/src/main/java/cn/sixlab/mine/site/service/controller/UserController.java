@@ -3,7 +3,6 @@ package cn.sixlab.mine.site.service.controller;
 import cn.sixlab.mine.site.common.utils.UserUtils;
 import cn.sixlab.mine.site.common.vo.ResultJson;
 import cn.sixlab.mine.site.data.models.MsUser;
-import cn.sixlab.mine.site.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 
     @Autowired
-    private UserService service;
+    private UserUtils userUtils;
 
     @ResponseBody
     @RequestMapping("/info")
     public ResultJson info() {
-        Integer userId = UserUtils.loginedUserId();
-        MsUser msUser = service.loadUserById(userId);
+        MsUser msUser = userUtils.loginedUser();
         return ResultJson.successData(msUser);
     }
 }

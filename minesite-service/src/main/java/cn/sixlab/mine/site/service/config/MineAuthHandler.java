@@ -30,6 +30,9 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserUtils userUtils;
+
     @Override
     public boolean supports(Class<?> authentication) {
         log.info("================");
@@ -79,7 +82,7 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
         LoginUser loginUser = (LoginUser) principal;
         MsUser msUser = loginUser.getMsUser();
 
-        String token = UserUtils.login(msUser);
+        String token = userUtils.login(msUser);
 
         WebUtils.writeJson(response, ResultJson.successData(token).toString());
     }

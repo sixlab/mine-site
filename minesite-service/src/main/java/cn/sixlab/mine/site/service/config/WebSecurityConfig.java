@@ -1,5 +1,6 @@
 package cn.sixlab.mine.site.service.config;
 
+import cn.sixlab.mine.site.common.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     MineAuthExceptionHandler authExceptionHandler;
+
+    @Autowired
+    UserUtils userUtils;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -63,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authExceptionHandler);
 
         // 校验过滤器
-        http.addFilter(new MineAuthFilter(authenticationManager()));
+        http.addFilter(new MineAuthFilter(authenticationManager(), userUtils));
     }
 
     @Override

@@ -108,12 +108,12 @@
             <version>4.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/is.jsonwebtoken/jjwt -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.6.0</version>
-        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/is.jsonwebtoken/jjwt &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.jsonwebtoken</groupId>-->
+<!--            <artifactId>jjwt</artifactId>-->
+<!--            <version>0.6.0</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>cn.sixlab</groupId>
