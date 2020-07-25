@@ -30,12 +30,6 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
-    proxy: {
-      '/api/*': {
-        target: 'http://localhost:8080',
-        secure: false
-      }
-    },
     port: port,
     open: true,
     overlay: {

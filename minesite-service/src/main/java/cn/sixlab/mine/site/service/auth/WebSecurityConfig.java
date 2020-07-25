@@ -12,11 +12,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     MineLogoutHandler logoutHandler;
@@ -48,6 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //关闭csrf
         http.csrf().disable();
 
+        http.cors().configurationSource(corsConfigurationSource());
+
         // 无状态
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -60,6 +67,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().logoutUrl("/logout")
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler(logoutHandler);
+
+        //任何请求,登录后可以访问
+        http.authorizeRequests()
+                .antMatchers(
+                        "/*",
+                        "/**/guest/**"
+                ).permitAll()
+                .anyRequest().authenticated();
 
         // 异常处理
         http.exceptionHandling()
@@ -77,6 +92,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**")
                 .antMatchers("/callback/**")
                 .antMatchers("/favicon.ico");
+    }
+
+    // @Bean
+    private CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowCredentials(true)
+                .allowedHeaders("*")
+                .allowedOrigins("*")
+                .allowedMethods("*");
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 public class UserUtils {
-    private String TOKEN_KEY = "MS_USER";
+    private String TOKEN_KEY = "MS_TOKEN";
 
     @Autowired
     private MsUserMapper userMapper;
@@ -35,6 +35,10 @@ public class UserUtils {
         // 先读取 request 防 cookie 缓存
         String token = request.getParameter(TOKEN_KEY);
 
+        if(StringUtils.isEmpty(token)){
+            token = request.getHeader(TOKEN_KEY);
+        }
+
         // 如果没有，读取 cookie
         if (StringUtils.isEmpty(token)) {
             token = WebUtils.getCookie(TOKEN_KEY);
@@ -53,7 +57,9 @@ public class UserUtils {
 
     public MsUser loginedUser(String token) {
         MsUser user = userMapper.selectByToken(token);
-        user.setPassword(null);
+        if (null != user) {
+            user.setPassword(null);
+        }
         return user;
     }
 

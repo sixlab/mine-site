@@ -2,21 +2,21 @@ import request from '@/utils/request'
 
 export function getRoutes() {
   return request({
-    url: '-dev/vue-element-admin/routes',
+    url: '-mock/vue-element-admin/routes',
     method: 'get'
   })
 }
 
 export function getRoles() {
   return request({
-    url: '-dev/vue-element-admin/roles',
+    url: '-mock/vue-element-admin/roles',
     method: 'get'
   })
 }
 
 export function addRole(data) {
   return request({
-    url: '-dev/vue-element-admin/role',
+    url: '-mock/vue-element-admin/role',
     method: 'post',
     data
   })
@@ -24,7 +24,7 @@ export function addRole(data) {
 
 export function updateRole(id, data) {
   return request({
-    url: `-dev/vue-element-admin/role/${id}`,
+    url: `-mock/vue-element-admin/role/${id}`,
     method: 'put',
     data
   })
@@ -32,7 +32,7 @@ export function updateRole(id, data) {
 
 export function deleteRole(id) {
   return request({
-    url: `-dev/vue-element-admin/role/${id}`,
+    url: `-mock/vue-element-admin/role/${id}`,
     method: 'delete'
   })
 }

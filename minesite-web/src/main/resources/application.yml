@@ -8,7 +8,6 @@ server:
     port-header: X-Forwarded-Port
   forward-headers-strategy: native
   servlet:
-    context-path: /api
     session:
       timeout: 30s
 
