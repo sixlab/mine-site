@@ -1,8 +1,8 @@
 package cn.sixlab.mine.site.service.api;
 
-import cn.sixlab.mine.site.common.utils.HttpUtils;
-import cn.sixlab.mine.site.common.utils.JsonUtils;
-import cn.sixlab.mine.site.common.vo.ResultJson;
+import cn.sixlab.mine.site.core.utils.HttpUtils;
+import cn.sixlab.mine.site.core.utils.JsonUtils;
+import cn.sixlab.mine.site.core.vo.ResultJson;
 import cn.sixlab.mine.site.data.mapper.VodInfoMapper;
 import cn.sixlab.mine.site.data.mapper.VodInfoUrlsMapper;
 import cn.sixlab.mine.site.data.mapper.VodPlayerMapper;

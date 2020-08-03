@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>cn.sixlab</groupId>
-            <artifactId>minesite-common</artifactId>
+            <artifactId>minesite-core</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

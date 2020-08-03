@@ -1,6 +1,6 @@
-package cn.sixlab.mine.site.common.utils;
+package cn.sixlab.mine.site.core.utils;
 
-import cn.sixlab.mine.site.common.vo.I18nMsg;
+import cn.sixlab.mine.site.core.vo.I18nMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;

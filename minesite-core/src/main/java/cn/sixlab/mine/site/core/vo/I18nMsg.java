@@ -1,6 +1,6 @@
-package cn.sixlab.mine.site.common.vo;
+package cn.sixlab.mine.site.core.vo;
 
-import cn.sixlab.mine.site.common.utils.JsonUtils;
+import cn.sixlab.mine.site.core.utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

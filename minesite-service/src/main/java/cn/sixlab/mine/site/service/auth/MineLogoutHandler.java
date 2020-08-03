@@ -1,8 +1,8 @@
 package cn.sixlab.mine.site.service.auth;
 
-import cn.sixlab.mine.site.common.utils.UserUtils;
-import cn.sixlab.mine.site.common.utils.WebUtils;
-import cn.sixlab.mine.site.common.vo.ResultJson;
+import cn.sixlab.mine.site.core.utils.UserUtils;
+import cn.sixlab.mine.site.core.utils.WebUtils;
+import cn.sixlab.mine.site.core.vo.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;

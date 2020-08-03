@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.controller;
 
-import cn.sixlab.mine.site.common.vo.ResultJson;
+import cn.sixlab.mine.site.core.vo.ResultJson;
 import cn.sixlab.mine.site.data.models.VodUserStar;
 import cn.sixlab.mine.site.service.service.MovieService;
 import lombok.extern.slf4j.Slf4j;

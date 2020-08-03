@@ -1,4 +1,4 @@
-package cn.sixlab.mine.site.common.utils;
+package cn.sixlab.mine.site.core.utils;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -7,35 +7,32 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.util.Base64;
 
-public class DecryptUtils {
+public class EncryptUtils {
     private static BouncyCastleProvider provider = new BouncyCastleProvider();
+
+    private static final int MAX_ENCRYPT_BLOCK = 117;
 
     static {
         Security.addProvider(provider);
     }
 
-    private static final int MAX_DECRYPT_BLOCK = 128;
-
     public static String des(String content, String key) {
         try {
             SecureRandom random = new SecureRandom();
-            DESKeySpec desKey = new DESKeySpec(key.getBytes());
+            DESKeySpec desKey = new DESKeySpec(key.getBytes(StandardCharsets.UTF_8));
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
             SecretKey secretKey = keyFactory.generateSecret(desKey);
             Cipher cipher = Cipher.getInstance("DES");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, random);
-            byte[] source = Base64.getDecoder().decode(content);
-            byte[] result = cipher.doFinal(source);
-            return new String(result);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, random);
+            byte[] result = cipher.doFinal(content.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(result).replaceAll("\\s*", "");
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -43,45 +40,41 @@ public class DecryptUtils {
     }
 
     public static String aes(String content, String key) {
-        String encryptValue = "";
         try {
-            byte[] plaintext = content.getBytes(StandardCharsets.UTF_8);
+            byte[] text = content.getBytes(StandardCharsets.UTF_8);
 
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding", "BC");
             SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
 
-            cipher.init(Cipher.DECRYPT_MODE, keySpec);
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec);
 
-            byte[] bys = cipher.doFinal(Base64.getDecoder().decode(plaintext));
+            byte[] ciphertext = cipher.doFinal(text);
 
-            encryptValue = new String(bys, StandardCharsets.UTF_8);
+            return Base64.getEncoder().encodeToString(ciphertext);
         } catch (Throwable e) {
             e.printStackTrace();
         }
-        return encryptValue;
-    }
 
-    public static String rsaPrivate(String content, String privateKey) {
-        return rsa(content, KeyUtils.getPrivateKey(privateKey));
+        return null;
     }
 
     public static String rsaPublic(String content, String publicKey) {
         return rsa(content, KeyUtils.getPublicKey(publicKey));
     }
 
+    public static String rsaPrivate(String content, String privateKey) {
+        return rsa(content, KeyUtils.getPrivateKey(privateKey));
+    }
+
     public static String rsa(String content, Key key) {
         try {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", "BC");
-            cipher.init(Cipher.DECRYPT_MODE, key);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
 
-            byte[] decode = Base64.getDecoder().decode(content.getBytes(StandardCharsets.UTF_8));
-            byte[] result = cipher.doFinal(decode);
-
-            return new String(result);
+            return Base64.getEncoder().encodeToString(cipher.doFinal(content.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -90,34 +83,35 @@ public class DecryptUtils {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", "BC");
             cipher.init(Cipher.ENCRYPT_MODE, key);
 
-            ByteArrayOutputStream writer = new ByteArrayOutputStream();
-            //rsa解密的字节大小最多是128，将需要解密的内容，按128位拆开解密
-            byte[] buffer = new byte[MAX_DECRYPT_BLOCK];
-            int length;
+            int inputLength = content.getBytes(StandardCharsets.UTF_8).length;
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            int offSet = 0;
+            byte[] cache;
+            int i = 0;
 
-            byte[] decode = Base64.getDecoder().decode(content.getBytes(StandardCharsets.UTF_8));
-            InputStream is = new ByteArrayInputStream(decode);
-            while ((length = is.read(buffer)) != -1) {
-                byte[] block;
-
-                if (buffer.length == length) {
-                    block = buffer;
+            int length = inputLength - offSet;
+            while (length > 0) {
+                if (length > MAX_ENCRYPT_BLOCK) {
+                    cache = cipher.doFinal(content.getBytes(StandardCharsets.UTF_8), offSet, MAX_ENCRYPT_BLOCK);
                 } else {
-                    block = new byte[length];
-                    System.arraycopy(buffer, 0, block, 0, length);
+                    cache = cipher.doFinal(content.getBytes(StandardCharsets.UTF_8), offSet, length);
                 }
 
-                writer.write(cipher.doFinal(block));
+                out.write(cache, 0, cache.length);
+                i++;
+                offSet = i * MAX_ENCRYPT_BLOCK;
+
+                length = inputLength - offSet;
             }
 
-            byte[] bytes = writer.toByteArray();
-            writer.close();
+            byte[] bytes = out.toByteArray();
+            out.close();
 
-            return new String(bytes);
+            return Base64.getEncoder().encodeToString(bytes);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
+
 }

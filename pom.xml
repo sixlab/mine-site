@@ -11,7 +11,7 @@
 
     <modules>
         <module>minesite-data</module>
-        <module>minesite-common</module>
+        <module>minesite-core</module>
         <module>minesite-service</module>
         <module>minesite-web</module>
         <module>minesite-tools</module>

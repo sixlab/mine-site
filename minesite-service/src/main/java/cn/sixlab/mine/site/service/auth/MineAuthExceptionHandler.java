@@ -1,8 +1,8 @@
 package cn.sixlab.mine.site.service.auth;
 
-import cn.sixlab.mine.site.common.utils.Err;
-import cn.sixlab.mine.site.common.utils.WebUtils;
-import cn.sixlab.mine.site.common.vo.ResultJson;
+import cn.sixlab.mine.site.core.utils.Err;
+import cn.sixlab.mine.site.core.utils.WebUtils;
+import cn.sixlab.mine.site.core.vo.ResultJson;
 import cn.sixlab.mine.site.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

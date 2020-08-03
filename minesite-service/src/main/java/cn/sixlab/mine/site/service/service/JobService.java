@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.service;
 
-import cn.sixlab.mine.site.common.utils.Ctx;
+import cn.sixlab.mine.site.core.utils.Ctx;
 import cn.sixlab.mine.site.data.mapper.MsJobMapper;
 import cn.sixlab.mine.site.data.models.MsJob;
 import cn.sixlab.mine.site.service.api.Job;

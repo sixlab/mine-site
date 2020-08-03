@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.controller;
 
-import cn.sixlab.mine.site.common.vo.ResultJson;
+import cn.sixlab.mine.site.core.vo.ResultJson;
 import cn.sixlab.mine.site.data.models.VodGroup;
 import cn.sixlab.mine.site.data.models.VodPlayer;
 import cn.sixlab.mine.site.data.models.VodSite;

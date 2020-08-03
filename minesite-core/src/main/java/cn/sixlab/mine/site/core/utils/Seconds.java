@@ -1,4 +1,4 @@
-package cn.sixlab.mine.site.common.utils;
+package cn.sixlab.mine.site.core.utils;
 
 public class Seconds {
     public static long d1 = 60 * 60 * 24;

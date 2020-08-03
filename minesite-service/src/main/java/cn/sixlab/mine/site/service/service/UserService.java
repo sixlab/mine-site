@@ -1,9 +1,9 @@
 package cn.sixlab.mine.site.service.service;
 
-import cn.sixlab.mine.site.common.utils.Err;
-import cn.sixlab.mine.site.common.vo.LoginUser;
-import cn.sixlab.mine.site.common.vo.MineAuthority;
-import cn.sixlab.mine.site.common.vo.MineException;
+import cn.sixlab.mine.site.core.utils.Err;
+import cn.sixlab.mine.site.core.vo.LoginUser;
+import cn.sixlab.mine.site.core.vo.MineAuthority;
+import cn.sixlab.mine.site.core.vo.MineException;
 import cn.sixlab.mine.site.data.mapper.MsUserMapper;
 import cn.sixlab.mine.site.data.models.MsUser;
 import org.springframework.beans.factory.annotation.Autowired;

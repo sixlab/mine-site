@@ -1,6 +1,6 @@
-package cn.sixlab.mine.site.common.utils;
+package cn.sixlab.mine.site.core.utils;
 
-import cn.sixlab.mine.site.common.vo.ResultJson;
+import cn.sixlab.mine.site.core.vo.ResultJson;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.util.CollectionUtils;

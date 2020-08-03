@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.config;
 
-import cn.sixlab.mine.site.common.utils.WebUtils;
+import cn.sixlab.mine.site.core.utils.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

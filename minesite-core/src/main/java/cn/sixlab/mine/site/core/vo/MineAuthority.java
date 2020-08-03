@@ -1,4 +1,4 @@
-package cn.sixlab.mine.site.common.vo;
+package cn.sixlab.mine.site.core.vo;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

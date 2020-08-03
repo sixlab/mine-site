@@ -1,4 +1,4 @@
-package cn.sixlab.mine.site.common.utils;
+package cn.sixlab.mine.site.core.utils;
 
 public class Err {
     public static Integer SUCCESS = 200;

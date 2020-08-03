@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.auth;
 
-import cn.sixlab.mine.site.common.utils.UserUtils;
+import cn.sixlab.mine.site.core.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

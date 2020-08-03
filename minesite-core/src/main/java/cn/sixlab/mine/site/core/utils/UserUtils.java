@@ -1,4 +1,4 @@
-package cn.sixlab.mine.site.common.utils;
+package cn.sixlab.mine.site.core.utils;
 
 import cn.sixlab.mine.site.data.mapper.MsUserMapper;
 import cn.sixlab.mine.site.data.models.MsUser;

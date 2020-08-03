@@ -1,7 +1,7 @@
 package cn.sixlab.mine.site.service.service;
 
-import cn.sixlab.mine.site.common.utils.HttpUtils;
-import cn.sixlab.mine.site.common.utils.JsonUtils;
+import cn.sixlab.mine.site.core.utils.HttpUtils;
+import cn.sixlab.mine.site.core.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
