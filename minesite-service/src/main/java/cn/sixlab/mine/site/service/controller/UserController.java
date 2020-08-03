@@ -2,7 +2,7 @@ package cn.sixlab.mine.site.service.controller;
 
 import cn.sixlab.mine.site.core.utils.UserUtils;
 import cn.sixlab.mine.site.core.vo.ResultJson;
-import cn.sixlab.mine.site.data.models.MsUser;
+import cn.sixlab.mine.site.core.models.MsUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.vo;
 
-import cn.sixlab.mine.site.data.models.VodInfo;
+import cn.sixlab.mine.site.core.models.VodInfo;
 import lombok.Data;
 
 import java.util.Map;

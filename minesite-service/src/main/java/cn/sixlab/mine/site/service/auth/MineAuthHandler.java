@@ -3,7 +3,7 @@ package cn.sixlab.mine.site.service.auth;
 import cn.sixlab.mine.site.core.utils.*;
 import cn.sixlab.mine.site.core.vo.LoginUser;
 import cn.sixlab.mine.site.core.vo.ResultJson;
-import cn.sixlab.mine.site.data.models.MsUser;
+import cn.sixlab.mine.site.core.models.MsUser;
 import cn.sixlab.mine.site.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

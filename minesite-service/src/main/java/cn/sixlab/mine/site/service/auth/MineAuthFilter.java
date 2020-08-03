@@ -2,7 +2,7 @@ package cn.sixlab.mine.site.service.auth;
 
 import cn.sixlab.mine.site.core.utils.UserUtils;
 import cn.sixlab.mine.site.core.vo.MineAuthority;
-import cn.sixlab.mine.site.data.models.MsUser;
+import cn.sixlab.mine.site.core.models.MsUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

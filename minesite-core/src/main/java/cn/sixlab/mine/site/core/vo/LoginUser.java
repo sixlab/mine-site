@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.core.vo;
 
-import cn.sixlab.mine.site.data.models.MsUser;
+import cn.sixlab.mine.site.core.models.MsUser;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

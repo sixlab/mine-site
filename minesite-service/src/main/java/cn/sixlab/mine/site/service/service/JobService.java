@@ -1,8 +1,8 @@
 package cn.sixlab.mine.site.service.service;
 
 import cn.sixlab.mine.site.core.utils.Ctx;
-import cn.sixlab.mine.site.data.mapper.MsJobMapper;
-import cn.sixlab.mine.site.data.models.MsJob;
+import cn.sixlab.mine.site.core.mapper.MsJobMapper;
+import cn.sixlab.mine.site.core.models.MsJob;
 import cn.sixlab.mine.site.service.api.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

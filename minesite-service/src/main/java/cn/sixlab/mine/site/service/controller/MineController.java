@@ -1,6 +1,6 @@
 package cn.sixlab.mine.site.service.controller;
 
-import cn.sixlab.mine.site.data.models.MsUser;
+import cn.sixlab.mine.site.core.models.MsUser;
 import cn.sixlab.mine.site.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

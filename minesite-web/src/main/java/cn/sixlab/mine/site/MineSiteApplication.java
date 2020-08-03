@@ -7,12 +7,12 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 // @EntityScan(basePackages = {
-//         "cn.sixlab.mine.site.data.models",
+//         "cn.sixlab.mine.site.core.models",
 // })
 @EnableCaching
 @EnableScheduling
 @SpringBootApplication
-@MapperScan("cn.sixlab.mine.site.data.mapper")
+@MapperScan("cn.sixlab.mine.site.core.mapper")
 public class MineSiteApplication {
 
     public static void main(String[] args) {

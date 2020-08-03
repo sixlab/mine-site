@@ -1,9 +1,9 @@
 package cn.sixlab.mine.site.service.controller;
 
 import cn.sixlab.mine.site.core.vo.ResultJson;
-import cn.sixlab.mine.site.data.models.VodGroup;
-import cn.sixlab.mine.site.data.models.VodPlayer;
-import cn.sixlab.mine.site.data.models.VodSite;
+import cn.sixlab.mine.site.core.models.VodGroup;
+import cn.sixlab.mine.site.core.models.VodPlayer;
+import cn.sixlab.mine.site.core.models.VodSite;
 import cn.sixlab.mine.site.service.service.MovieService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

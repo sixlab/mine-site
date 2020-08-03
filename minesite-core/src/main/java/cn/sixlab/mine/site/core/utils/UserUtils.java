@@ -1,7 +1,7 @@
 package cn.sixlab.mine.site.core.utils;
 
-import cn.sixlab.mine.site.data.mapper.MsUserMapper;
-import cn.sixlab.mine.site.data.models.MsUser;
+import cn.sixlab.mine.site.core.mapper.MsUserMapper;
+import cn.sixlab.mine.site.core.models.MsUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

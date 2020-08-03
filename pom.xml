@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>minesite-data</module>
         <module>minesite-core</module>
         <module>minesite-service</module>
         <module>minesite-web</module>
