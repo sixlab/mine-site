@@ -11,7 +11,7 @@
 
     <modules>
         <module>minesite-core</module>
-        <module>minesite-web</module>
+        <module>minesite-test-web</module>
         <module>minesite-tools</module>
     </modules>
 
