@@ -6,12 +6,11 @@
 
     <groupId>cn.sixlab</groupId>
     <artifactId>mine-site</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>minesite-core</module>
-        <module>minesite-service</module>
         <module>minesite-web</module>
         <module>minesite-tools</module>
     </modules>

@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.sixlab</groupId>
     <artifactId>minesite-web</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>minesite-web</name>
     <description>基于 Spring Boot 的网站开发脚手架，服务器端。https://sixlab.cn/projects/minesite/</description>
 
@@ -21,8 +21,8 @@
     <dependencies>
         <dependency>
             <groupId>cn.sixlab</groupId>
-            <artifactId>minesite-service</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <artifactId>minesite-core</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
