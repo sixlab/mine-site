@@ -16,4 +16,6 @@ public interface MsJobRecordMapper {
     int updateByPrimaryKeyWithBLOBs(MsJobRecord record);
 
     int updateByPrimaryKey(MsJobRecord record);
+
+    void checkTable();
 }

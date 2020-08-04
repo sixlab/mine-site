@@ -21,7 +21,7 @@ public class DbTableTools {
 
     public static void main(String[] args) throws Exception {
         String[] tables = new String[]{
-                "vod_info",
+                "ms_meta",
         };
 
         // 获取到原始generatorConfig

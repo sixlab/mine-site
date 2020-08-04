@@ -17,6 +17,8 @@ public interface MsJobMapper {
 
     int updateByPrimaryKey(MsJob record);
 
+    void checkTable();
+
     @Select(" select *" +
             " from ms_job" +
             " where job_clz = #{jobClz} " +
