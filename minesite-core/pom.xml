@@ -11,7 +11,7 @@
     </parent>
     <groupId>tech.minesoft</groupId>
     <artifactId>minesite-core</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <description>基于 Spring Boot 的网站开发脚手架，服务器端。http://minesoft.tech/project/mine-site.html</description>
     <name>minesite-core</name>
     <url>http://minesoft.tech/project/mine-site.html</url>
