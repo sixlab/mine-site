@@ -12,6 +12,10 @@ public class MsJob implements Serializable {
 
     private Integer status;
 
+    private Date lastTime;
+
+    private Integer lastStatus;
+
     private Date createTime;
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +50,22 @@ public class MsJob implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(Date lastTime) {
+        this.lastTime = lastTime;
+    }
+
+    public Integer getLastStatus() {
+        return lastStatus;
+    }
+
+    public void setLastStatus(Integer lastStatus) {
+        this.lastStatus = lastStatus;
     }
 
     public Date getCreateTime() {

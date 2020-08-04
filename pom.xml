@@ -13,6 +13,7 @@
         <module>minesite-core</module>
         <module>minesite-test-web</module>
         <module>minesite-tools</module>
+        <module>minesite-ext</module>
     </modules>
 
 </project>
