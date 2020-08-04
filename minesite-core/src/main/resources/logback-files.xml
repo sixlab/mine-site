@@ -6,7 +6,7 @@
     <!--按天生成日志-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>logs/mine-dao-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>logs/minesite-%d{yyyy-MM-dd}.log</FileNamePattern>
             <!--日志文件保留天数-->
             <maxHistory>7</maxHistory>
         </rollingPolicy>
