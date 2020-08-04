@@ -4,8 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>tech.minesoft</groupId>
-    <artifactId>spring-boot-dependencies</artifactId>
-    <version>2.3.2.RELEASE</version>
+    <artifactId>minesite-tools</artifactId>
+    <version>1.0.2-SNAPSHOT</version>
+    <name>minesite-tools</name>
 
     <dependencies>
         <dependency>
