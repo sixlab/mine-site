@@ -2,6 +2,7 @@ package cn.sixlab.mine.site.core.controller;
 
 import cn.sixlab.mine.site.core.models.MsUser;
 import cn.sixlab.mine.site.core.service.UserService;
+import cn.sixlab.mine.site.core.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,14 @@ public class MineController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserUtils userUtils;
+
     @RequestMapping(value = {"/", "/index"})
     public String index(ModelMap model) {
-
-        return "index";
+        MsUser msUser = userUtils.loginedUser();
+        model.put("userInfo", msUser);
+        return "i/user";
     }
 
     @PreAuthorize("permitAll")
