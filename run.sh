@@ -2,7 +2,7 @@
 
 source /etc/profile
 
-cmd=$(ps aux | grep minesite-test-web.jar | grep java | awk '{print $2}')
+cmd=$(ps aux | grep demo-web.jar | grep java | awk '{print $2}')
 
 echo -e "PID: \n\033[31m\033[05m$cmd\033[0m"
 
@@ -14,4 +14,4 @@ for id in ${cmd}; do
 done
 echo 'finish kill'
 
-nohup java -jar minesite-test-web.jar --spring.profiles.active=prod >nohup.out 2>&1 &
+nohup java -jar demo-web.jar --spring.profiles.active=prod >nohup.out 2>&1 &

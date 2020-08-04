@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tech.minesoft.test.mapper.VodPlayerMapper">
-  <resultMap id="BaseResultMap" type="tech.minesoft.test.models.VodPlayer">
+<mapper namespace="tech.minesoft.demo.mapper.VodPlayerMapper">
+  <resultMap id="BaseResultMap" type="tech.minesoft.demo.models.VodPlayer">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="site_code" jdbcType="VARCHAR" property="siteCode" />
     <result column="player_code" jdbcType="VARCHAR" property="playerCode" />
@@ -24,7 +24,7 @@
     delete from vod_player
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="tech.minesoft.test.models.VodPlayer">
+  <insert id="insert" parameterType="tech.minesoft.demo.models.VodPlayer">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -35,7 +35,7 @@
       #{playerType,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="tech.minesoft.test.models.VodPlayer">
+  <insert id="insertSelective" parameterType="tech.minesoft.demo.models.VodPlayer">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.test.models.VodPlayer">
+  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.demo.models.VodPlayer">
     update vod_player
     <set>
       <if test="siteCode != null">
@@ -114,7 +114,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="tech.minesoft.test.models.VodPlayer">
+  <update id="updateByPrimaryKey" parameterType="tech.minesoft.demo.models.VodPlayer">
     update vod_player
     set site_code = #{siteCode,jdbcType=VARCHAR},
       player_code = #{playerCode,jdbcType=VARCHAR},
