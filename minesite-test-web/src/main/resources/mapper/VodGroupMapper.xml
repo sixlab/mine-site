@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.sixlab.test.mapper.VodGroupMapper">
-  <resultMap id="BaseResultMap" type="cn.sixlab.test.models.VodGroup">
+<mapper namespace="tech.minesoft.test.mapper.VodGroupMapper">
+  <resultMap id="BaseResultMap" type="tech.minesoft.test.models.VodGroup">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="group_name" jdbcType="VARCHAR" property="groupName" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -20,7 +20,7 @@
     delete from vod_group
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.sixlab.test.models.VodGroup">
+  <insert id="insert" parameterType="tech.minesoft.test.models.VodGroup">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -29,7 +29,7 @@
     values (#{groupName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.sixlab.test.models.VodGroup">
+  <insert id="insertSelective" parameterType="tech.minesoft.test.models.VodGroup">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.sixlab.test.models.VodGroup">
+  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.test.models.VodGroup">
     update vod_group
     <set>
       <if test="groupName != null">
@@ -72,7 +72,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.sixlab.test.models.VodGroup">
+  <update id="updateByPrimaryKey" parameterType="tech.minesoft.test.models.VodGroup">
     update vod_group
     set group_name = #{groupName,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

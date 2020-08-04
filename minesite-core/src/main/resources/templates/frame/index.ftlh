@@ -26,7 +26,7 @@
         </div>
 
         <footer class="footer-wrapper">
-            <strong>Copyright &copy; 2020 <a href="https://sixlab.cn">sixlab</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2020 <a href="https://minesosft.tech">minesosft</a>.</strong> All rights reserved.
         </footer>
 
     </div>

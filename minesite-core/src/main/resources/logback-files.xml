@@ -24,7 +24,7 @@
 
     <!-- Spring 的级别是 info-->
     <logger name="org.springframework.web" level="info"/>
-    <logger name="cn.sixlab" additivity="true" level="DEBUG"/>
+    <logger name="tech.minesoft" additivity="true" level="DEBUG"/>
     <root level="INFO">
         <appender-ref ref="asyncFileAppender"/>
     </root>

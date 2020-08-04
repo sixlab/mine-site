@@ -12,7 +12,7 @@
     <artifactId>minesite-test-web</artifactId>
     <version>1.0.2-SNAPSHOT</version>
     <name>minesite-test-web</name>
-    <description>基于 Spring Boot 的网站开发脚手架，服务器端。https://sixlab.cn/projects/minesite/</description>
+    <description>基于 Spring Boot 的网站开发脚手架，服务器端。https://minesoft.tech/projects/minesite/</description>
 
     <properties>
         <java.version>1.8</java.version>

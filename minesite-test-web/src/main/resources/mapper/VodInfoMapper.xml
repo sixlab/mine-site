@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.sixlab.test.mapper.VodInfoMapper">
-  <resultMap id="BaseResultMap" type="cn.sixlab.test.models.VodInfo">
+<mapper namespace="tech.minesoft.test.mapper.VodInfoMapper">
+  <resultMap id="BaseResultMap" type="tech.minesoft.test.models.VodInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="vod_name" jdbcType="VARCHAR" property="vodName" />
     <result column="vod_group" jdbcType="VARCHAR" property="vodGroup" />
@@ -14,7 +14,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.sixlab.test.models.VodInfo">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.minesoft.test.models.VodInfo">
     <result column="vod_intro" jdbcType="LONGVARCHAR" property="vodIntro" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -36,7 +36,7 @@
     delete from vod_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.sixlab.test.models.VodInfo">
+  <insert id="insert" parameterType="tech.minesoft.test.models.VodInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -49,7 +49,7 @@
       #{vodActor,jdbcType=VARCHAR}, #{vodDirector,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{vodIntro,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.sixlab.test.models.VodInfo">
+  <insert id="insertSelective" parameterType="tech.minesoft.test.models.VodInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -125,7 +125,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.sixlab.test.models.VodInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.test.models.VodInfo">
     update vod_info
     <set>
       <if test="vodName != null">
@@ -164,7 +164,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.sixlab.test.models.VodInfo">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.minesoft.test.models.VodInfo">
     update vod_info
     set vod_name = #{vodName,jdbcType=VARCHAR},
       vod_group = #{vodGroup,jdbcType=VARCHAR},
@@ -179,7 +179,7 @@
       vod_intro = #{vodIntro,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.sixlab.test.models.VodInfo">
+  <update id="updateByPrimaryKey" parameterType="tech.minesoft.test.models.VodInfo">
     update vod_info
     set vod_name = #{vodName,jdbcType=VARCHAR},
       vod_group = #{vodGroup,jdbcType=VARCHAR},
