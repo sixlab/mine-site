@@ -23,13 +23,13 @@ public class MineAuthExceptionHandler implements AccessDeniedHandler, Authentica
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) {
-        log.info("================");
+        log.info("Auth Exception handler================");
         WebUtils.writeJson(response, ResultJson.error(Err.AUTH, "auth.access.denied").toString());
     }
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        log.info("================");
+        log.info("Auth Exception commence================");
         WebUtils.writeJson(response, ResultJson.error(Err.AUTH, "login.not").toString());
     }
 }

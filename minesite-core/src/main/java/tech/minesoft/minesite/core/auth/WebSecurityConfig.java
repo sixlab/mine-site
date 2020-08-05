@@ -69,12 +69,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .logoutSuccessHandler(logoutHandler);
 
         //任何请求,登录后可以访问
-        http.authorizeRequests()
-                .antMatchers(
-                        "/*",
-                        "/**/guest/**"
-                ).permitAll()
-                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers(
+//                        "/**"
+//                ).permitAll()
+//                .anyRequest().authenticated();
 
         // 异常处理
         http.exceptionHandling()

@@ -38,7 +38,6 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
 
     @Override
     public boolean supports(Class<?> authentication) {
-        log.info("================");
         return true;
     }
 
@@ -67,7 +66,7 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) {
-        log.info("================");
+        log.info("Auth Fail================");
         String message;
         if (exception instanceof BadCredentialsException) {
             message = "login.bad.credentials";
@@ -80,7 +79,7 @@ public class MineAuthHandler implements AuthenticationProvider, AuthenticationSu
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        log.info("================");
+        log.info("Auth Success================");
         Object principal = authentication.getPrincipal();
         LoginUser loginUser = (LoginUser) principal;
         MsUser msUser = loginUser.getMsUser();

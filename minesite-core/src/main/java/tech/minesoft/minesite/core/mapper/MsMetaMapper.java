@@ -1,8 +1,11 @@
 package tech.minesoft.minesite.core.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import tech.minesoft.minesite.core.models.MsMeta;
+
+import java.util.List;
 
 public interface MsMetaMapper {
     int deleteByPrimaryKey(Integer id);
@@ -29,4 +32,9 @@ public interface MsMetaMapper {
             " set meta_val = #{val} " +
             " where id = #{id} ")
     void updateVal(@Param("id")Integer id, @Param("val")int val);
+
+    @Select(" select * " +
+            " from ms_meta " +
+            " where meta_group = #{metaGroup,jdbcType=VARCHAR} ")
+    List<MsMeta> selectGroup(@Param("metaGroup")String metaGroup);
 }
