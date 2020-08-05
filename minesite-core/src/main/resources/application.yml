@@ -88,3 +88,7 @@ mybatis:
   mapper-locations: classpath*:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+minesite:
+  version:
+    base: 1

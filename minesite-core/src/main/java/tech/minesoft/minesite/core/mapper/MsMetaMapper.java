@@ -26,7 +26,7 @@ public interface MsMetaMapper {
     MsMeta selectOne(@Param("metaGroup")String group,@Param("metaKey")String key);
 
     @Update(" update ms_meta " +
-            " set meta_val = #{version} " +
+            " set meta_val = #{val} " +
             " where id = #{id} ")
-    void updateVersion(@Param("id")Integer id, @Param("version")int version);
+    void updateVal(@Param("id")Integer id, @Param("val")int val);
 }

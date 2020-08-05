@@ -7,7 +7,8 @@ spring:
     password: pwd
 
 minesite:
-  version: 1
+  version:
+    app: 1
   admin:
     prefix: "admin-"
   druid:
