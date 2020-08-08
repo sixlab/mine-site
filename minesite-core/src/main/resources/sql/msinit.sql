@@ -37,3 +37,10 @@ create table ms_user
 );
 create index ms_user_role_index
     on ms_user (role);
+
+INSERT INTO ms_meta (meta_group, meta_key, meta_val)
+VALUES
+       ('six-siteInfo', 'siteName', '网站名称'),
+       ('six-siteInfo', 'titleSeparator', '|'),
+       ('six-siteInfo', 'keywords', 'sixlab'),
+       ('six-siteInfo', 'description', 'sixlab.cn');
