@@ -1,6 +1,6 @@
 package tech.minesoft.demo.controller;
 
-import tech.minesoft.minesite.core.vo.ResultJson;
+import tech.minesoft.mine.site.core.vo.ResultJson;
 import tech.minesoft.demo.models.VodUserStar;
 import tech.minesoft.demo.service.MovieService;
 import lombok.extern.slf4j.Slf4j;

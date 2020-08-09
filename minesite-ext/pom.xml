@@ -9,16 +9,16 @@
         <version>2.3.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>tech.minesoft</groupId>
+    <groupId>tech.minesoft.mine.site</groupId>
     <artifactId>minesite-ext</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.5-SNAPSHOT</version>
     <name>minesite-ext</name>
 
     <dependencies>
         <dependency>
-            <groupId>tech.minesoft</groupId>
+            <groupId>tech.minesoft.mine.site</groupId>
             <artifactId>minesite-core</artifactId>
-            <version>1.0.4-SNAPSHOT</version>
+            <version>1.0.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

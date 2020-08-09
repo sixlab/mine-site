@@ -1,6 +1,6 @@
 package tech.minesoft.demo.controller;
 
-import tech.minesoft.minesite.core.vo.ResultJson;
+import tech.minesoft.mine.site.core.vo.ResultJson;
 import tech.minesoft.demo.models.VodGroup;
 import tech.minesoft.demo.models.VodPlayer;
 import tech.minesoft.demo.models.VodSite;

@@ -1,6 +1,6 @@
 package tech.minesoft.demo.controller;
 
-import tech.minesoft.minesite.core.vo.ResultJson;
+import tech.minesoft.mine.site.core.vo.ResultJson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;

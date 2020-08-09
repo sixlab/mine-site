@@ -1,8 +1,8 @@
 package tech.minesoft.demo.api;
 
-import tech.minesoft.minesite.core.utils.HttpUtils;
-import tech.minesoft.minesite.core.utils.JsonUtils;
-import tech.minesoft.minesite.core.vo.ResultJson;
+import tech.minesoft.mine.site.core.utils.HttpUtils;
+import tech.minesoft.mine.site.core.utils.JsonUtils;
+import tech.minesoft.mine.site.core.vo.ResultJson;
 import tech.minesoft.demo.mapper.VodInfoMapper;
 import tech.minesoft.demo.mapper.VodInfoUrlsMapper;
 import tech.minesoft.demo.mapper.VodPlayerMapper;

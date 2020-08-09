@@ -8,9 +8,9 @@
         <version>2.3.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>tech.minesoft</groupId>
+    <groupId>tech.minesoft.mine.site</groupId>
     <artifactId>demo-web</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.5-SNAPSHOT</version>
     <name>demo-web</name>
     <description>demo</description>
 
@@ -20,14 +20,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>tech.minesoft</groupId>
+            <groupId>tech.minesoft.mine.site</groupId>
             <artifactId>minesite-core</artifactId>
-            <version>1.0.4-SNAPSHOT</version>
+            <version>1.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>tech.minesoft</groupId>
+            <groupId>tech.minesoft.mine.site</groupId>
             <artifactId>minesite-ext</artifactId>
-            <version>1.0.4-SNAPSHOT</version>
+            <version>1.0.5-SNAPSHOT</version>
         </dependency>
 
         <dependency>

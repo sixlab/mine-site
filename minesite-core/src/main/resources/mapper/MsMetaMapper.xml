@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tech.minesoft.minesite.core.mapper.MsMetaMapper">
-  <resultMap id="BaseResultMap" type="tech.minesoft.minesite.core.models.MsMeta">
+<mapper namespace="tech.minesoft.mine.site.core.mapper.MsMetaMapper">
+  <resultMap id="BaseResultMap" type="tech.minesoft.mine.site.core.models.MsMeta">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="fk_id" jdbcType="INTEGER" property="fkId" />
     <result column="meta_group" jdbcType="VARCHAR" property="metaGroup" />
@@ -9,7 +9,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.minesoft.minesite.core.models.MsMeta">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.minesoft.mine.site.core.models.MsMeta">
     <result column="meta_val" jdbcType="LONGVARCHAR" property="metaVal" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -30,7 +30,7 @@
     delete from ms_meta
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="tech.minesoft.minesite.core.models.MsMeta">
+  <insert id="insert" parameterType="tech.minesoft.mine.site.core.models.MsMeta">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -41,7 +41,7 @@
       #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{metaVal,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="tech.minesoft.minesite.core.models.MsMeta">
+  <insert id="insertSelective" parameterType="tech.minesoft.mine.site.core.models.MsMeta">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.minesite.core.models.MsMeta">
+  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.mine.site.core.models.MsMeta">
     update ms_meta
     <set>
       <if test="fkId != null">
@@ -111,7 +111,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.minesoft.minesite.core.models.MsMeta">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.minesoft.mine.site.core.models.MsMeta">
     update ms_meta
     set fk_id = #{fkId,jdbcType=INTEGER},
       meta_group = #{metaGroup,jdbcType=VARCHAR},
@@ -121,7 +121,7 @@
       meta_val = #{metaVal,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="tech.minesoft.minesite.core.models.MsMeta">
+  <update id="updateByPrimaryKey" parameterType="tech.minesoft.mine.site.core.models.MsMeta">
     update ms_meta
     set fk_id = #{fkId,jdbcType=INTEGER},
       meta_group = #{metaGroup,jdbcType=VARCHAR},

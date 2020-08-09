@@ -1,6 +1,6 @@
 package tech.minesoft.demo;
 
-import tech.minesoft.minesite.core.service.JobService;
+import tech.minesoft.mine.site.core.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
