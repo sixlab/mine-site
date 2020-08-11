@@ -27,6 +27,7 @@ public interface MsJobMapper {
 
     @Select(" select * " +
             " from ms_job " +
+            " where status=1 " +
             " order by id ")
     List<MsJob> selectAll();
 }

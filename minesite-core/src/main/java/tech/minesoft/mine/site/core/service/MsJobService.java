@@ -26,7 +26,7 @@ public class MsJobService {
 
         int status = 0;
         String msg = "";
-        if (msJob != null && 1 == msJob.getStatus()) {
+        if (msJob != null) {
             try {
                 Object job = Ctx.getBean(msJob.getJobClz());
                 Method method = job.getClass().getMethod(msJob.getJobMethod());
