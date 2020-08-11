@@ -1,15 +1,18 @@
-create table ms_job
+create table if not exists ms_job
 (
     id int auto_increment
         primary key,
+    job_code varchar(20) null,
     job_clz varchar(30) null,
+    job_method varchar(20) null,
     job_name varchar(30) null,
     status int null,
     last_time datetime null comment '上次运行时间',
     last_status int null comment '状态：0-失败，1-正常',
     create_time datetime(6) null
 );
-create table ms_job_record
+
+create table if not exists ms_job_record
 (
     id int auto_increment
         primary key,
@@ -19,7 +22,20 @@ create table ms_job_record
     status int null,
     create_time datetime(6) null
 );
-create table ms_user
+
+create table if not exists ms_meta
+(
+    id int auto_increment
+        primary key,
+    fk_id int null,
+    meta_group varchar(200) null,
+    meta_key varchar(200) null,
+    meta_val longtext null,
+    remark varchar(1000) null,
+    create_time datetime(6) null
+);
+
+create table if not exists ms_user
 (
     id int auto_increment
         primary key,
@@ -35,6 +51,7 @@ create table ms_user
     constraint UKg654enkj2gifxv3miea4v46w7
         unique (username)
 );
+
 create index ms_user_role_index
     on ms_user (role);
 
@@ -42,8 +59,8 @@ INSERT INTO ms_meta (meta_group, meta_key, meta_val)
 VALUES
        ('six-siteInfo', 'siteName', '网站名称'),
        ('six-siteInfo', 'titleSeparator', '|'),
-       ('six-siteInfo', 'keywords', 'sixlab'),
-       ('six-siteInfo', 'description', 'sixlab.cn');
+       ('six-siteInfo', 'keywords', 'minesoft'),
+       ('six-siteInfo', 'description', 'minesoft.tech');
 
 INSERT INTO ms_user (username, nickname, password, role, status)
 VALUES
