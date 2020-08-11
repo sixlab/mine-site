@@ -25,6 +25,10 @@ public class Ctx {
         return ctx.getBeansOfType(clz);
     }
 
+    public static Object getBean(String beanName) {
+        return ctx.getBean(beanName);
+    }
+
     public static <T> T getBean(Class<T> clz) {
         return ctx.getBean(clz);
     }

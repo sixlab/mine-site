@@ -3,7 +3,9 @@
 <mapper namespace="tech.minesoft.mine.site.core.mapper.MsJobMapper">
   <resultMap id="BaseResultMap" type="tech.minesoft.mine.site.core.models.MsJob">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="job_code" jdbcType="VARCHAR" property="jobCode" />
     <result column="job_clz" jdbcType="VARCHAR" property="jobClz" />
+    <result column="job_method" jdbcType="VARCHAR" property="jobMethod" />
     <result column="job_name" jdbcType="VARCHAR" property="jobName" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
@@ -11,7 +13,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, job_clz, job_name, status, last_time, last_status, create_time
+    id, job_code, job_clz, job_method, job_name, status, last_time, last_status, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,12 +29,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ms_job (job_clz, job_name, status, 
-      last_time, last_status, create_time
-      )
-    values (#{jobClz,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{lastTime,jdbcType=TIMESTAMP}, #{lastStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+    insert into ms_job (job_code, job_clz, job_method, 
+      job_name, status, last_time, 
+      last_status, create_time)
+    values (#{jobCode,jdbcType=VARCHAR}, #{jobClz,jdbcType=VARCHAR}, #{jobMethod,jdbcType=VARCHAR}, 
+      #{jobName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{lastTime,jdbcType=TIMESTAMP}, 
+      #{lastStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="tech.minesoft.mine.site.core.models.MsJob">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -40,8 +42,14 @@
     </selectKey>
     insert into ms_job
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobCode != null">
+        job_code,
+      </if>
       <if test="jobClz != null">
         job_clz,
+      </if>
+      <if test="jobMethod != null">
+        job_method,
       </if>
       <if test="jobName != null">
         job_name,
@@ -60,8 +68,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobCode != null">
+        #{jobCode,jdbcType=VARCHAR},
+      </if>
       <if test="jobClz != null">
         #{jobClz,jdbcType=VARCHAR},
+      </if>
+      <if test="jobMethod != null">
+        #{jobMethod,jdbcType=VARCHAR},
       </if>
       <if test="jobName != null">
         #{jobName,jdbcType=VARCHAR},
@@ -83,8 +97,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.mine.site.core.models.MsJob">
     update ms_job
     <set>
+      <if test="jobCode != null">
+        job_code = #{jobCode,jdbcType=VARCHAR},
+      </if>
       <if test="jobClz != null">
         job_clz = #{jobClz,jdbcType=VARCHAR},
+      </if>
+      <if test="jobMethod != null">
+        job_method = #{jobMethod,jdbcType=VARCHAR},
       </if>
       <if test="jobName != null">
         job_name = #{jobName,jdbcType=VARCHAR},
@@ -106,7 +126,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="tech.minesoft.mine.site.core.models.MsJob">
     update ms_job
-    set job_clz = #{jobClz,jdbcType=VARCHAR},
+    set job_code = #{jobCode,jdbcType=VARCHAR},
+      job_clz = #{jobClz,jdbcType=VARCHAR},
+      job_method = #{jobMethod,jdbcType=VARCHAR},
       job_name = #{jobName,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       last_time = #{lastTime,jdbcType=TIMESTAMP},

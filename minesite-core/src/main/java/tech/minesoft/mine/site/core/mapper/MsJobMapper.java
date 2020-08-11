@@ -4,6 +4,8 @@ import tech.minesoft.mine.site.core.models.MsJob;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 public interface MsJobMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,11 +19,14 @@ public interface MsJobMapper {
 
     int updateByPrimaryKey(MsJob record);
 
-    void checkTable();
+    @Select(" select * " +
+            " from ms_job " +
+            " where job_code = #{jobCode,jdbcType=VARCHAR} " +
+            " limit 1 ")
+    MsJob selectByCode(@Param("jobCode") String jobCode);
 
-    @Select(" select *" +
-            " from ms_job" +
-            " where job_clz = #{jobClz} " +
-            " limit 1")
-    MsJob selectByClz(@Param("jobClz") String jobClz);
+    @Select(" select * " +
+            " from ms_job " +
+            " order by id ")
+    List<MsJob> selectAll();
 }

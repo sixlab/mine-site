@@ -6,7 +6,11 @@ import java.util.Date;
 public class MsJob implements Serializable {
     private Integer id;
 
+    private String jobCode;
+
     private String jobClz;
+
+    private String jobMethod;
 
     private String jobName;
 
@@ -28,12 +32,28 @@ public class MsJob implements Serializable {
         this.id = id;
     }
 
+    public String getJobCode() {
+        return jobCode;
+    }
+
+    public void setJobCode(String jobCode) {
+        this.jobCode = jobCode == null ? null : jobCode.trim();
+    }
+
     public String getJobClz() {
         return jobClz;
     }
 
     public void setJobClz(String jobClz) {
         this.jobClz = jobClz == null ? null : jobClz.trim();
+    }
+
+    public String getJobMethod() {
+        return jobMethod;
+    }
+
+    public void setJobMethod(String jobMethod) {
+        this.jobMethod = jobMethod == null ? null : jobMethod.trim();
     }
 
     public String getJobName() {
