@@ -9,8 +9,6 @@ spring:
 minesite:
   version:
     app: 1
-  admin:
-    prefix: "admin-"
   druid:
     key: root
     username: druid
