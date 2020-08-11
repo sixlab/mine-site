@@ -58,6 +58,7 @@ create index ms_user_role_index
 INSERT INTO ms_meta (meta_group, meta_key, meta_val)
 VALUES
        ('six-siteInfo', 'siteName', '网站名称'),
+       ('six-siteInfo', 'siteLogo', '/static/images/ms.png'),
        ('six-siteInfo', 'titleSeparator', '|'),
        ('six-siteInfo', 'keywords', 'minesoft'),
        ('six-siteInfo', 'description', 'minesoft.tech');

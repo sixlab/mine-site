@@ -50,7 +50,7 @@ public class MsMetaService {
         old.setMetaVal(meta.getMetaVal());
         old.setRemark(meta.getRemark());
 
-        metaMapper.updateByPrimaryKey(old);
+        metaMapper.updateByPrimaryKeyWithBLOBs(old);
     }
 
     public void delete(Integer id) {

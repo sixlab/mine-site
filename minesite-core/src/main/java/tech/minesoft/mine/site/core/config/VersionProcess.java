@@ -1,7 +1,7 @@
 package tech.minesoft.mine.site.core.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,8 +72,7 @@ public class VersionProcess implements ApplicationContextAware {
 
     private void runSqlFile (String filename) throws IOException {
         ClassPathResource resource = new ClassPathResource("sql" + File.separator + filename);
-        File file = resource.getFile();
-        String sql = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+        String sql = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
         metaMapper.runSql(sql);
     }
 }
