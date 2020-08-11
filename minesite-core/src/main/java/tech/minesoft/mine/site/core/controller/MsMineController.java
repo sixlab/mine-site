@@ -1,7 +1,7 @@
 package tech.minesoft.mine.site.core.controller;
 
 import tech.minesoft.mine.site.core.models.MsUser;
-import tech.minesoft.mine.site.core.service.UserService;
+import tech.minesoft.mine.site.core.service.MsUserService;
 import tech.minesoft.mine.site.core.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/i")
-public class MineController {
+public class MsMineController {
 
     @Autowired
-    private UserService userService;
+    private MsUserService userService;
 
     @Autowired
     private UserUtils userUtils;

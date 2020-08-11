@@ -12,7 +12,7 @@ import tech.minesoft.mine.site.core.utils.Ctx;
 import java.util.Date;
 
 @Service
-public class JobService {
+public class MsJobService {
 
     @Autowired
     public MsJobMapper jobMapper;

@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import tech.minesoft.mine.site.core.models.MsUser;
-import tech.minesoft.mine.site.core.service.UserService;
+import tech.minesoft.mine.site.core.service.MsUserService;
 import tech.minesoft.mine.site.core.utils.Err;
 import tech.minesoft.mine.site.core.utils.I18nUtils;
 import tech.minesoft.mine.site.core.utils.UserUtils;
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class MineAuthHandler implements AuthenticationProvider, AuthenticationSuccessHandler, AuthenticationFailureHandler {
     @Autowired
-    UserService userService;
+    MsUserService userService;
 
     @Autowired
     UserUtils userUtils;

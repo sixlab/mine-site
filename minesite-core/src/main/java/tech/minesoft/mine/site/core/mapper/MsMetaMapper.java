@@ -37,4 +37,9 @@ public interface MsMetaMapper {
             " from ms_meta " +
             " where meta_group = #{metaGroup,jdbcType=VARCHAR} ")
     List<MsMeta> selectGroup(@Param("metaGroup")String metaGroup);
+
+    @Select(" select * " +
+            " from ms_meta " +
+            " order by id ")
+    List<MsMeta> selectAll();
 }

@@ -44,3 +44,7 @@ VALUES
        ('six-siteInfo', 'titleSeparator', '|'),
        ('six-siteInfo', 'keywords', 'sixlab'),
        ('six-siteInfo', 'description', 'sixlab.cn');
+
+INSERT INTO ms_user (username, nickname, password, role, status)
+VALUES
+       ('admax', '管理员', '$2a$10$s/xO98MdVefRAl1Yj05aROXUxoUCCOnAW/Uf/DmTYMA1XC0MIbbBG', 'admin', '1');

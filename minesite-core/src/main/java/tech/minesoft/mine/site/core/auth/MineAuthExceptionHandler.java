@@ -3,7 +3,7 @@ package tech.minesoft.mine.site.core.auth;
 import tech.minesoft.mine.site.core.utils.Err;
 import tech.minesoft.mine.site.core.utils.WebUtils;
 import tech.minesoft.mine.site.core.vo.ResultJson;
-import tech.minesoft.mine.site.core.service.UserService;
+import tech.minesoft.mine.site.core.service.MsUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class MineAuthExceptionHandler implements AccessDeniedHandler, AuthenticationEntryPoint {
     @Autowired
-    UserService userService;
+    MsUserService userService;
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) {

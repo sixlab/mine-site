@@ -59,7 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // 登录
-        http.formLogin().loginProcessingUrl("/login")
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
                 .successHandler(authHandler)
                 .failureHandler(authHandler);
 
