@@ -1,6 +1,9 @@
 package tech.minesoft.mine.site.core.mapper;
 
+import org.apache.ibatis.annotations.Select;
 import tech.minesoft.mine.site.core.models.MsJobRecord;
+
+import java.util.List;
 
 public interface MsJobRecordMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,5 +20,9 @@ public interface MsJobRecordMapper {
 
     int updateByPrimaryKey(MsJobRecord record);
 
-    void checkTable();
+    @Select(" select * " +
+            " from ms_job_record " +
+            " order by id desc " +
+            " limit 100 ")
+    List<MsJobRecord> loadLast();
 }

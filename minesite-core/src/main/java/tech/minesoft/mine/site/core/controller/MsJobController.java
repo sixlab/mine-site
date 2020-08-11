@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import tech.minesoft.mine.site.core.models.MsJob;
+import tech.minesoft.mine.site.core.models.MsJobRecord;
 import tech.minesoft.mine.site.core.service.MsJobService;
 import tech.minesoft.mine.site.core.vo.ResultJson;
 
@@ -24,6 +25,14 @@ public class MsJobController {
         List<MsJob> dataList = jobService.loadAll();
         map.put("dataList", dataList);
         return "job/list";
+    }
+
+    @PreAuthorize("hasAuthority('admin')")
+    @GetMapping(value = "/record")
+    public String record(ModelMap map) {
+        List<MsJobRecord> dataList = jobService.loadLastRecord();
+        map.put("dataList", dataList);
+        return "job/record";
     }
 
     @PreAuthorize("hasAuthority('admin')")

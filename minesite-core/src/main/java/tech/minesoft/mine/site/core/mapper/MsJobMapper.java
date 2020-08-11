@@ -22,12 +22,12 @@ public interface MsJobMapper {
     @Select(" select * " +
             " from ms_job " +
             " where job_code = #{jobCode,jdbcType=VARCHAR} " +
+            " and status=1 " +
             " limit 1 ")
     MsJob selectByCode(@Param("jobCode") String jobCode);
 
     @Select(" select * " +
             " from ms_job " +
-            " where status=1 " +
             " order by id ")
     List<MsJob> selectAll();
 }

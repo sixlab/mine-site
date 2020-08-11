@@ -11,6 +11,7 @@
     }
 </style>
 <div id="content">
+    <a class="btn btn-outline-info my-2 my-sm-0" href="/job/record">记录</a>
     <a class="btn btn-outline-success my-2 my-sm-0" href="/job/add">添加</a>
 
     <table class="table table-striped">

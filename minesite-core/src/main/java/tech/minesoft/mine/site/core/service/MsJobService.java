@@ -79,4 +79,8 @@ public class MsJobService {
 
         jobMapper.updateByPrimaryKey(old);
     }
+
+    public List<MsJobRecord> loadLastRecord() {
+        return recordMapper.loadLast();
+    }
 }
