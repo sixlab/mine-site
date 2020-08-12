@@ -1,18 +1,10 @@
-<link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
-<script src="/static/plugins/jquery/jquery.min.js"></script>
-<style>
-    #content{
-        width: 1000px;
-        margin: 30px auto;
-    }
+<#include "/ms/frame.ftl"/>
+<@AdminFrame title="任务列表">
 
-    table{
-        margin-top: 20px;
-    }
-</style>
 <div id="content">
-    <a class="btn btn-outline-info my-2 my-sm-0" href="/ms/job/record">记录</a>
-    <a class="btn btn-outline-success my-2 my-sm-0" href="/ms/job/add">添加</a>
+    <div class="data-op">
+        <a class="btn btn-outline-success my-2 my-sm-0" href="/ms/job/add">添加</a>
+    </div>
 
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -63,4 +55,5 @@
         });
     });
 </script>
-<script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</@AdminFrame>

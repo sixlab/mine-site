@@ -1,47 +1,36 @@
-<link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
-<script src="/static/plugins/jquery/jquery.min.js"></script>
-<style>
-    #editFrm{
-        width: 1000px;
-        margin: 30px auto;
-    }
+<#include "/ms/frame.ftl"/>
+<#assign title = (job??)?string('修改','新增')+'任务' />
+<@AdminFrame title="${title}">
 
-    #btnGroup{
-        width: 410px;
-        margin: 0 auto;
-    }
-
-    #btnGroup .btn{
-        width: 200px;
-    }
-</style>
-<form id="editFrm">
-    <input type="hidden" name="id" id="id" value="${(job.id)!''}">
-    <div class="form-group">
-        <label for="jobCode">编号</label>
-        <input type="text" class="form-control" name="jobCode" id="jobCode" value="${(job.jobCode)!''}">
-    </div>
-    <div class="form-group">
-        <label for="jobClz">类</label>
-        <input type="text" class="form-control" name="jobClz" id="jobClz" value="${(job.jobClz)!''}">
-    </div>
-    <div class="form-group">
-        <label for="jobMethod">方法</label>
-        <input type="text" class="form-control" name="jobMethod" id="jobMethod" value="${(job.jobMethod)!''}">
-    </div>
-    <div class="form-group">
-        <label for="jobName">名称</label>
-        <input type="text" class="form-control" name="jobName" id="jobName" value="${(job.jobName)!''}">
-    </div>
-    <div class="form-group">
-        <label for="status">状态</label>
-        <input type="text" class="form-control" name="status" id="status" value="${(job.status)!''}">
-    </div>
-    <div class="form-group" id="btnGroup">
-        <a class="btn btn-secondary" href="/ms/job/list">返回</a>
-        <button type="submit" class="btn btn-primary" id="editSubmit">提交</button>
-    </div>
-</form>
+<div id="content">
+    <form id="editFrm">
+        <input type="hidden" name="id" id="id" value="${(job.id)!''}">
+        <div class="form-group">
+            <label for="jobCode">编号</label>
+            <input type="text" class="form-control" name="jobCode" id="jobCode" value="${(job.jobCode)!''}">
+        </div>
+        <div class="form-group">
+            <label for="jobClz">类</label>
+            <input type="text" class="form-control" name="jobClz" id="jobClz" value="${(job.jobClz)!''}">
+        </div>
+        <div class="form-group">
+            <label for="jobMethod">方法</label>
+            <input type="text" class="form-control" name="jobMethod" id="jobMethod" value="${(job.jobMethod)!''}">
+        </div>
+        <div class="form-group">
+            <label for="jobName">名称</label>
+            <input type="text" class="form-control" name="jobName" id="jobName" value="${(job.jobName)!''}">
+        </div>
+        <div class="form-group">
+            <label for="status">状态</label>
+            <input type="text" class="form-control" name="status" id="status" value="${(job.status)!''}">
+        </div>
+        <div class="form-group" id="btnGroup">
+            <a class="btn btn-secondary" href="/ms/job/list">返回</a>
+            <button type="submit" class="btn btn-primary" id="editSubmit">提交</button>
+        </div>
+    </form>
+</div>
 
 <script type="text/javascript">
     $(function(){
@@ -63,4 +52,5 @@
         });
     });
 </script>
-<script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</@AdminFrame>

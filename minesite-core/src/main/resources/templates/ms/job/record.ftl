@@ -1,17 +1,8 @@
-<link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
-<script src="/static/plugins/jquery/jquery.min.js"></script>
-<style>
-    #content{
-        width: 1000px;
-        margin: 30px auto;
-    }
+<#include "/ms/frame.ftl"/>
+<@AdminFrame title="任务记录">
 
-    table{
-        margin-top: 20px;
-    }
-</style>
 <div id="content">
-    <table class="table table-striped">
+    <table class="table table-striped data-table">
         <thead class="thead-dark">
         <tr>
             <th scope="col" width="10%">序号</th>
@@ -35,4 +26,4 @@
     </table>
 </div>
 
-<script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+</@AdminFrame>
