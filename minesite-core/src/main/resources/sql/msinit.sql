@@ -90,8 +90,8 @@ INSERT INTO ms_menu
 VALUES
 ('admin', 1, '首页', '/ms', '首页', 1000),
 ('admin', 1, '系统', '', '系统', 9000),
-('admin', 2, '参数', '/meta/list', '参数', 9010),
-('admin', 2, '菜单', '/menu/list', '参数', 9100),
-('admin', 2, '用户', '/user/list', '参数', 9110),
-('admin', 2, '任务', '/job/list', '任务', 9900),
-('admin', 2, '任务记录', '/job/record', '任务记录', 9910);
+('admin', 2, '参数', '/ms/meta/list', '参数', 9010),
+('admin', 2, '菜单', '/ms/menu/list', '参数', 9100),
+('admin', 2, '用户', '/ms/user/list', '参数', 9110),
+('admin', 2, '任务', '/ms/job/list', '任务', 9900),
+('admin', 2, '任务记录', '/ms/job/record', '任务记录', 9910);
