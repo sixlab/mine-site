@@ -12,7 +12,7 @@ import tech.minesoft.mine.site.core.vo.ResultJson;
 import java.util.List;
 
 @Controller
-@RequestMapping("/meta")
+@RequestMapping("/ms/meta")
 public class MsMetaController {
 
     @Autowired
@@ -23,13 +23,13 @@ public class MsMetaController {
     public String list(ModelMap map) {
         List<MsMeta> dataList = metaService.loadAll();
         map.put("dataList", dataList);
-        return "meta/list";
+        return "ms/meta/list";
     }
 
     @PreAuthorize("hasAuthority('admin')")
     @GetMapping(value = "/add")
     public String add(ModelMap map) {
-        return "meta/edit";
+        return "ms/meta/edit";
     }
 
     @PreAuthorize("hasAuthority('admin')")
@@ -37,13 +37,13 @@ public class MsMetaController {
     public String edit(ModelMap map, @PathVariable Integer id) {
         MsMeta meta = metaService.select(id);
         map.put("meta", meta);
-        return "meta/edit";
+        return "ms/meta/edit";
     }
 
     @PreAuthorize("hasAuthority('admin')")
     @ResponseBody
     @PostMapping(value = "/delete/{id}")
-    public ResultJson delete(ModelMap map, @PathVariable Integer id) {
+    public ResultJson delete(@PathVariable Integer id) {
 
         metaService.delete(id);
 
@@ -53,7 +53,7 @@ public class MsMetaController {
     @PreAuthorize("hasAuthority('admin')")
     @ResponseBody
     @PostMapping(value = "/submit")
-    public ResultJson submit(ModelMap map, MsMeta meta) {
+    public ResultJson submit(MsMeta meta) {
 
         if(null==meta.getId()){
             metaService.add(meta);

@@ -27,7 +27,7 @@ public class MsLoginController {
     @PreAuthorize("hasAuthority('admin')")
     @GetMapping(value = "/ms")
     public String ms(ModelMap modelMap) {
-        return "ms";
+        return "ms/index";
     }
 
 }

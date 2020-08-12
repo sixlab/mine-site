@@ -1,16 +1,21 @@
 package tech.minesoft.mine.site.core.service;
 
-import tech.minesoft.mine.site.core.utils.Err;
-import tech.minesoft.mine.site.core.vo.LoginUser;
-import tech.minesoft.mine.site.core.vo.MineAuthority;
-import tech.minesoft.mine.site.core.vo.MineException;
-import tech.minesoft.mine.site.core.mapper.MsUserMapper;
-import tech.minesoft.mine.site.core.models.MsUser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import tech.minesoft.mine.site.core.mapper.MsUserMapper;
+import tech.minesoft.mine.site.core.models.MsUser;
+import tech.minesoft.mine.site.core.utils.Err;
+import tech.minesoft.mine.site.core.vo.LoginUser;
+import tech.minesoft.mine.site.core.vo.MineAuthority;
+import tech.minesoft.mine.site.core.vo.MineException;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class MsUserService implements UserDetailsService {
@@ -46,5 +51,40 @@ public class MsUserService implements UserDetailsService {
         }
         msUser.setPassword(null);
         return msUser;
+    }
+
+    public List<MsUser> loadAll() {
+        return userMapper.selectAll();
+    }
+
+    public MsUser select(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    public void delete(Integer id) {
+        userMapper.deleteByPrimaryKey(id);
+    }
+
+    public void add(MsUser data) {
+        data.setPassword(new BCryptPasswordEncoder().encode(data.getPassword()));
+        data.setCreateTime(new Date());
+
+        userMapper.insert(data);
+    }
+
+    public void modify(MsUser data) {
+        MsUser old = userMapper.selectByPrimaryKey(data.getId());
+
+        old.setUsername(data.getUsername());
+        old.setNickname(data.getNickname());
+        if(StringUtils.isNotEmpty(data.getPassword())){
+            old.setPassword(new BCryptPasswordEncoder().encode(data.getPassword()));
+        }
+        old.setRole(data.getRole());
+        old.setStatus(data.getStatus());
+        old.setToken(null);
+        old.setExpireTime(null);
+
+        userMapper.updateByPrimaryKey(old);
     }
 }

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface MsUserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -24,7 +26,7 @@ public interface MsUserMapper {
             "   and expire_time >= now()  ")
     MsUser selectByToken(@Param("token") String token);
 
-    @Select("select * " +
+    @Select(" select * " +
             " from ms_user " +
             " where username = #{username} ")
     MsUser selectByUsername(@Param("username") String username);
@@ -44,4 +46,9 @@ public interface MsUserMapper {
             "     login_time = null " +
             " where id = #{userId} ")
     void delToken(@Param("token")String token);
+
+    @Select(" select * " +
+            " from ms_user " +
+            " order by id ")
+    List<MsUser> selectAll();
 }

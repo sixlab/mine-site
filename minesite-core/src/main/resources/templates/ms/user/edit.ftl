@@ -16,29 +16,29 @@
     }
 </style>
 <form id="editFrm">
-    <input type="hidden" name="id" id="id" value="${(meta.id)!''}">
+    <input type="hidden" name="id" id="id" value="${(data.id)!''}">
     <div class="form-group">
-        <label for="fkId">外键ID</label>
-        <input type="text" class="form-control" name="fkId" id="fkId" value="${(meta.fkId)!''}">
+        <label for="username">位置</label>
+        <input type="text" class="form-control" name="username" id="username" value="${(data.username)!''}">
     </div>
     <div class="form-group">
-        <label for="metaGroup">组</label>
-        <input type="text" class="form-control" name="metaGroup" id="metaGroup" value="${(meta.metaGroup)!''}">
+        <label for="nickname">等级</label>
+        <input type="text" class="form-control" name="nickname" id="nickname" value="${(data.nickname)!''}">
     </div>
     <div class="form-group">
-        <label for="metaKey">键</label>
-        <input type="text" class="form-control" name="metaKey" id="metaKey" value="${(meta.metaKey)!''}">
+        <label for="password">菜单名</label>
+        <input type="text" class="form-control" name="password" id="password" value="">
     </div>
     <div class="form-group">
-        <label for="metaVal">值</label>
-        <input type="text" class="form-control" name="metaVal" id="metaVal" value="${(meta.metaVal)!''}">
+        <label for="role">路径</label>
+        <input type="text" class="form-control" name="role" id="role" value="${(data.role)!''}">
     </div>
     <div class="form-group">
-        <label for="remark">备注</label>
-        <input type="text" class="form-control" name="remark" id="remark" value="${(meta.remark)!''}">
+        <label for="status">顺序</label>
+        <input type="text" class="form-control" name="status" id="status" value="${(data.status)!''}">
     </div>
     <div class="form-group" id="btnGroup">
-        <a class="btn btn-secondary" href="/meta/list">返回</a>
+        <a class="btn btn-secondary" href="/ms/user/list">返回</a>
         <button type="submit" class="btn btn-primary" id="editSubmit">提交</button>
     </div>
 </form>
@@ -47,7 +47,7 @@
     $(function(){
         $("#editSubmit").click(function () {
             $.ajax({
-                url:"/meta/submit",
+                url:"/ms/user/submit",
                 method:"post",
                 dataType:"json",
                 data:$("#editFrm").serialize(),

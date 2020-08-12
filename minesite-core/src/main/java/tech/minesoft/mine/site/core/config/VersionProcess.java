@@ -61,7 +61,7 @@ public class VersionProcess implements ApplicationContextAware {
         }else{
             Integer oldVersion = Integer.valueOf( msMeta.getMetaVal());
             if(oldVersion < currentVersion){
-                for (int i = oldVersion; i <= currentVersion; i++) {
+                for (int i = oldVersion; i < currentVersion; i++) {
                     runSqlFile( prefix+i+".sql");
 
                     metaMapper.updateVal(msMeta.getId(), i);

@@ -1,0 +1,4 @@
+
+<@MenuInfo positon="admin">
+
+</@MenuInfo>

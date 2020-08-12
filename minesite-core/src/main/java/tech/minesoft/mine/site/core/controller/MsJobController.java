@@ -13,7 +13,7 @@ import tech.minesoft.mine.site.core.vo.ResultJson;
 import java.util.List;
 
 @Controller
-@RequestMapping("/job")
+@RequestMapping("/ms/job")
 public class MsJobController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class MsJobController {
     public String list(ModelMap map) {
         List<MsJob> dataList = jobService.loadAll();
         map.put("dataList", dataList);
-        return "job/list";
+        return "ms/job/list";
     }
 
     @PreAuthorize("hasAuthority('admin')")
@@ -32,13 +32,13 @@ public class MsJobController {
     public String record(ModelMap map) {
         List<MsJobRecord> dataList = jobService.loadLastRecord();
         map.put("dataList", dataList);
-        return "job/record";
+        return "ms/job/record";
     }
 
     @PreAuthorize("hasAuthority('admin')")
     @GetMapping(value = "/add")
     public String add(ModelMap map) {
-        return "job/edit";
+        return "ms/job/edit";
     }
 
     @PreAuthorize("hasAuthority('admin')")
@@ -46,13 +46,13 @@ public class MsJobController {
     public String edit(ModelMap map, @PathVariable Integer id) {
         MsJob job = jobService.select(id);
         map.put("job", job);
-        return "job/edit";
+        return "ms/job/edit";
     }
 
     @PreAuthorize("hasAuthority('admin')")
     @ResponseBody
     @PostMapping(value = "/delete/{id}")
-    public ResultJson delete(ModelMap map, @PathVariable Integer id) {
+    public ResultJson delete(@PathVariable Integer id) {
 
         jobService.delete(id);
 
@@ -62,7 +62,7 @@ public class MsJobController {
     @PreAuthorize("hasAuthority('admin')")
     @ResponseBody
     @PostMapping(value = "/submit")
-    public ResultJson submit(ModelMap map, MsJob job) {
+    public ResultJson submit(MsJob job) {
 
         if(null==job.getId()){
             jobService.add(job);
