@@ -12,7 +12,7 @@ import tech.minesoft.mine.site.core.vo.ResultJson;
 import java.util.List;
 
 @Controller
-@RequestMapping("/ms/menu")
+@RequestMapping("/ms/user")
 public class MsUserController {
 
     @Autowired
