@@ -35,9 +35,11 @@ public class VersionProcess implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         try {
             metaMapper.checkTable();
+            log.info("sql 版本更新，基础框架部分：");
             // 框架
             processVersion("baseVersion","ms", baseVersion);
 
+            log.info("sql 版本更新，应用部分：");
             // 应用
             processVersion("appVersion","", appVersion);
         } catch (Exception e) {
@@ -51,6 +53,8 @@ public class VersionProcess implements ApplicationContextAware {
         // 内置
         MsMeta msMeta = metaMapper.selectOne("minesite", versionKey);
         if(null==msMeta){
+            log.info("sql 版本更新："+versionKey+"。初始化");
+
             runSqlFile(prefix+"init.sql");
 
             msMeta = new MsMeta();
@@ -59,6 +63,7 @@ public class VersionProcess implements ApplicationContextAware {
             msMeta.setMetaVal(currentVersion +"");
             metaMapper.insert(msMeta);
         }else{
+            log.info("sql 版本更新："+versionKey+"。升级至版本 " + currentVersion);
             Integer oldVersion = Integer.valueOf( msMeta.getMetaVal());
             if(oldVersion < currentVersion){
                 for (int i = oldVersion; i < currentVersion; i++) {
@@ -66,11 +71,14 @@ public class VersionProcess implements ApplicationContextAware {
 
                     metaMapper.updateVal(msMeta.getId(), i);
                 }
+
+                metaMapper.updateVal(msMeta.getId(), currentVersion);
             }
         }
     }
 
     private void runSqlFile (String filename) throws IOException {
+        log.info("sql 版本更新，运行 sql 文件："+filename);
         ClassPathResource resource = new ClassPathResource("sql" + File.separator + filename);
         String sql = IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
         metaMapper.runSql(sql);
