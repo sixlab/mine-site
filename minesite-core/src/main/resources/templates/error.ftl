@@ -389,7 +389,7 @@
                 <h1>${status!"None"}</h1>
                 <h2>${message!"None"}</h2>
                 <p>您所寻找的页面不存在。你可以点击下面的按钮，返回主页。</p>
-                <a href="https://404.life/"><button class="btn green">返回${siteInfo.siteName!'sixlab'}首页</button></a>
+                <a href="/"><button class="btn green">返回${siteInfo.siteName!'sixlab'}首页</button></a>
             </div>
         </div>
     </div>
