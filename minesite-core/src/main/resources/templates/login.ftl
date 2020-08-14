@@ -56,7 +56,7 @@
                 data:$("#loginFrm").serialize(),
                 success:function(data){
                     if(data.success){
-                        $('#ErrMsg').html("成功，UUID为：<br/>"+data.data);
+                        $('#ErrMsg').html("<a href='/ms'>前往后台</a>，UUID为：<br/>"+data.data);
                         $('#MsgModal').modal("show");
                     }else {
                         $('#ErrMsg').text(data.message);

@@ -179,8 +179,6 @@
 </head>
 <body>
 
-<link rel="stylesheet" href="./style/style.css">
-
 <main>
     <div class="container">
         <div class="row">
@@ -387,8 +385,7 @@
             </div>
             <div class="col-md-6 align-self-center">
                 <h1>${status!"None"}</h1>
-                <h2>${message!"None"}</h2>
-                <p>您所寻找的页面不存在。你可以点击下面的按钮，返回主页。</p>
+                <p>${message!"None"}</p>
                 <a href="/"><button class="btn green">返回${siteInfo.siteName!'sixlab'}首页</button></a>
             </div>
         </div>

@@ -14,7 +14,6 @@ public class Ctx {
     @Autowired
     public void setCtx(ApplicationContext ctx) {
         Ctx.ctx = ctx;
-        System.out.println(ctx);
     }
 
     public static String getProperty(String code){

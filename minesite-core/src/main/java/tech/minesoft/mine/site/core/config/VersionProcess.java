@@ -53,7 +53,7 @@ public class VersionProcess implements ApplicationContextAware {
         // 内置
         MsMeta msMeta = metaMapper.selectOne("minesite", versionKey);
         if(null==msMeta){
-            log.info("sql 版本更新："+versionKey+"。初始化");
+            log.info(versionKey + " 初始化> sql 版本更新：");
 
             runSqlFile(prefix+"init.sql");
 
@@ -63,9 +63,10 @@ public class VersionProcess implements ApplicationContextAware {
             msMeta.setMetaVal(currentVersion +"");
             metaMapper.insert(msMeta);
         }else{
-            log.info("sql 版本更新："+versionKey+"。升级至版本 " + currentVersion);
             Integer oldVersion = Integer.valueOf( msMeta.getMetaVal());
             if(oldVersion < currentVersion){
+                log.info(versionKey + " 版本升级> sql 版本更新：从 " + oldVersion + " 升级至 " + currentVersion);
+
                 for (int i = oldVersion; i < currentVersion; i++) {
                     runSqlFile( prefix+i+".sql");
 

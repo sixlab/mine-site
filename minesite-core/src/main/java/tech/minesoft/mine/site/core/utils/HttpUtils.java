@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -302,8 +304,11 @@ public class HttpUtils {
     public static String makeGetUrl(String url, Map<String, String> data) {
         return url + "?" + makeGetParam(data, true);
     }
-
     public static ResultJson responseHandler(Response response) {
+        return responseHandler(response, StandardCharsets.UTF_8);
+    }
+
+    public static ResultJson responseHandler(Response response, Charset charset) {
         ResultJson result = new ResultJson();
 
         if (response != null) {
@@ -311,7 +316,7 @@ public class HttpUtils {
 
             if (response.isSuccessful() && response.body() != null) {
                 try {
-                    String text = response.body().string();
+                    String text = new String(response.body().bytes(), charset);
                     log.info("返回：" + text);
 
                     result.setStatus(Err.SUCCESS);

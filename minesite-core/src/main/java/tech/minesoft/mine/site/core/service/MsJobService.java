@@ -1,5 +1,7 @@
 package tech.minesoft.mine.site.core.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.minesoft.mine.site.core.mapper.MsJobMapper;
@@ -12,6 +14,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class MsJobService {
 
@@ -34,7 +37,8 @@ public class MsJobService {
 
                 status = 1;
             }catch (Exception e){
-                msg = e.getMessage();
+                log.error("任务异常", e);
+                msg = ExceptionUtils.getMessage(e);
             }
 
             msJob.setLastStatus(status);
