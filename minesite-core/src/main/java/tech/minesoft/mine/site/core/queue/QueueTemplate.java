@@ -13,7 +13,7 @@ import tech.minesoft.mine.site.core.utils.Ctx;
 
 @Slf4j
 @Component
-public class MessageTemplate {
+public class QueueTemplate {
     private static final String QUEUE = "queue";
 
     @Autowired
@@ -32,7 +32,7 @@ public class MessageTemplate {
         MessageHeaders headers = message.getHeaders();
         if (headers.containsKey(QUEUE)) {
             String queue = String.valueOf(headers.get(QUEUE));
-            MessageConsumer job = Ctx.getBean(MessageConsumer.class, queue);
+            QueueConsumer job = Ctx.getBean(QueueConsumer.class, queue);
             job.run(message);
         }
     }
