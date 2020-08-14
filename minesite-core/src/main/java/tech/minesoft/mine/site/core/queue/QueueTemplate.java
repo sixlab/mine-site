@@ -11,6 +11,8 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import tech.minesoft.mine.site.core.utils.Ctx;
 
+import java.util.concurrent.ExecutorService;
+
 @Slf4j
 @Component
 public class QueueTemplate {
@@ -18,6 +20,9 @@ public class QueueTemplate {
 
     @Autowired
     private QueueChannel queueChannel;
+
+    @Autowired
+    private ExecutorService executorService;
 
     public void send(String queue, Object payload){
         Message<Object> message = MessageBuilder.withPayload(payload)
@@ -31,9 +36,11 @@ public class QueueTemplate {
     public void onMessage(Message<Object> message) {
         MessageHeaders headers = message.getHeaders();
         if (headers.containsKey(QUEUE)) {
-            String queue = String.valueOf(headers.get(QUEUE));
-            QueueConsumer job = Ctx.getBean(QueueConsumer.class, queue);
-            job.run(message);
+            executorService.execute(() -> {
+                String queue = String.valueOf(headers.get(QUEUE));
+                QueueConsumer job = Ctx.getBean(QueueConsumer.class, queue);
+                job.run(message);
+            });
         }
     }
 }

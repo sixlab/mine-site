@@ -10,6 +10,8 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Configuration
 public class MsAppConfig {
@@ -35,5 +37,10 @@ public class MsAppConfig {
     @Bean
     public QueueChannel queueChannel(){
         return new QueueChannel(10);
+    }
+
+    @Bean
+    public ExecutorService executorService(){
+        return Executors.newCachedThreadPool();
     }
 }
