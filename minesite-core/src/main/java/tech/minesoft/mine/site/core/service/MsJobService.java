@@ -1,90 +1,289 @@
 package tech.minesoft.mine.site.core.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.quartz.*;
+import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Service;
-import tech.minesoft.mine.site.core.mapper.MsJobMapper;
-import tech.minesoft.mine.site.core.mapper.MsJobRecordMapper;
-import tech.minesoft.mine.site.core.models.MsJob;
-import tech.minesoft.mine.site.core.models.MsJobRecord;
-import tech.minesoft.mine.site.core.utils.Ctx;
 
-import java.lang.reflect.Method;
-import java.util.Date;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import java.util.*;
 
 @Slf4j
 @Service
 public class MsJobService {
 
     @Autowired
-    public MsJobMapper jobMapper;
+    private Scheduler scheduler;
 
-    @Autowired
-    public MsJobRecordMapper recordMapper;
-
-    public void run(String jobCode) {
-        MsJob msJob = jobMapper.selectByCode(jobCode);
-
-        int status = 0;
-        String msg = "";
-        if (msJob != null) {
-            try {
-                Object job = Ctx.getBean(msJob.getJobClz());
-                Method method = job.getClass().getMethod(msJob.getJobMethod());
-                method.invoke(job);
-
-                status = 1;
-            }catch (Exception e){
-                log.error("任务异常", e);
-                msg = ExceptionUtils.getMessage(e);
-            }
-
-            msJob.setLastStatus(status);
-            msJob.setLastTime(new Date());
-            jobMapper.updateByPrimaryKey(msJob);
-
-            MsJobRecord record = new MsJobRecord();
-            record.setJobId(msJob.getId());
-            record.setJobName(msJob.getJobName());
-            record.setStatus(status);
-            record.setMsg(msg);
-            record.setCreateTime(new Date());
-            recordMapper.insert(record);
+    @PostConstruct
+    public void startScheduler() {
+        try {
+            scheduler.start();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
         }
     }
 
-    public List<MsJob> loadAll() {
-        return jobMapper.selectAll();
+    /**
+     * 增加一个job
+     *
+     * @param jobClass
+     *            任务实现类
+     * @param jobName
+     *            任务名称
+     * @param groupName
+     *            任务组名
+     * @param jobTime
+     *            时间表达式 (这是每隔多少秒为一次任务)
+     * @param jobTimes
+     *            运行的次数 （<0:表示不限次数）
+     * @param jobData
+     *            参数
+     */
+    public void addJob(Class<? extends QuartzJobBean> jobClass, String jobName, String groupName, int jobTime,
+                       int jobTimes, Map jobData) {
+        try {
+            // 任务名称和组构成任务key
+            JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, groupName)
+                    .build();
+            // 设置job参数
+            if(jobData!= null && jobData.size()>0){
+                jobDetail.getJobDataMap().putAll(jobData);
+            }
+            // 使用simpleTrigger规则
+            Trigger trigger = null;
+            if (jobTimes < 0) {
+                trigger = TriggerBuilder.newTrigger().withIdentity(jobName, groupName)
+                        .withSchedule(SimpleScheduleBuilder.repeatSecondlyForever(1).withIntervalInSeconds(jobTime))
+                        .startNow().build();
+            } else {
+                trigger = TriggerBuilder
+                        .newTrigger().withIdentity(jobName, groupName).withSchedule(SimpleScheduleBuilder
+                                .repeatSecondlyForever(1).withIntervalInSeconds(jobTime).withRepeatCount(jobTimes))
+                        .startNow().build();
+            }
+            scheduler.scheduleJob(jobDetail, trigger);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 
-    public MsJob select(Integer id) {
-        return jobMapper.selectByPrimaryKey(id);
+    /**
+     * 增加一个job
+     *
+     * @param jobClass
+     *            任务实现类
+     * @param jobName
+     *            任务名称(建议唯一)
+     * @param groupName
+     *            任务组名
+     * @param jobTime
+     *            时间表达式 （如：0/5 * * * * ? ）
+     * @param jobData
+     *            参数
+     */
+    public void addJob(Class<? extends QuartzJobBean> jobClass, String jobName, String groupName, String jobTime, Map jobData) {
+        try {
+            // 创建jobDetail实例，绑定Job实现类
+            // 指明job的名称，所在组的名称，以及绑定job类
+            // 任务名称和组构成任务key
+            JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, groupName)
+                    .build();
+            // 设置job参数
+            if(jobData!= null && jobData.size()>0){
+                jobDetail.getJobDataMap().putAll(jobData);
+            }
+            // 定义调度触发规则
+            // 使用cornTrigger规则
+            // 触发器key
+            Trigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName, groupName)
+                    .startAt(DateBuilder.futureDate(1, DateBuilder.IntervalUnit.SECOND))
+                    .withSchedule(CronScheduleBuilder.cronSchedule(jobTime)).startNow().build();
+            // 把作业和触发器注册到任务调度中
+            scheduler.scheduleJob(jobDetail, trigger);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void delete(Integer id) {
-        jobMapper.deleteByPrimaryKey(id);
+    /**
+     * 修改 一个job的 时间表达式
+     *
+     * @param jobName
+     * @param groupName
+     * @param jobTime
+     */
+    public void updateJob(String jobName, String groupName, String jobTime) {
+        try {
+            TriggerKey triggerKey = TriggerKey.triggerKey(jobName, groupName);
+            CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+            trigger = trigger.getTriggerBuilder().withIdentity(triggerKey)
+                    .withSchedule(CronScheduleBuilder.cronSchedule(jobTime)).build();
+            // 重启触发器
+            scheduler.rescheduleJob(triggerKey, trigger);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void add(MsJob job) {
-        job.setCreateTime(new Date());
-        jobMapper.insert(job);
+    /**
+     * 删除任务一个job
+     *
+     * @param jobName
+     *            任务名称
+     * @param groupName
+     *            任务组名
+     */
+    public void deleteJob(String jobName, String groupName) {
+        try {
+            scheduler.deleteJob(new JobKey(jobName, groupName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void modify(MsJob job) {
-        MsJob old = jobMapper.selectByPrimaryKey(job.getId());
-
-        old.setJobCode(job.getJobCode());
-        old.setJobClz(job.getJobClz());
-        old.setJobMethod(job.getJobMethod());
-        old.setJobName(job.getJobName());
-        old.setStatus(job.getStatus());
-
-        jobMapper.updateByPrimaryKey(old);
+    /**
+     * 暂停一个job
+     *
+     * @param jobName
+     * @param groupName
+     */
+    public void pauseJob(String jobName, String groupName) {
+        try {
+            JobKey jobKey = JobKey.jobKey(jobName, groupName);
+            scheduler.pauseJob(jobKey);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<MsJobRecord> loadLastRecord() {
-        return recordMapper.loadLast();
+    /**
+     * 恢复一个job
+     *
+     * @param jobName
+     * @param groupName
+     */
+    public void resumeJob(String jobName, String groupName) {
+        try {
+            JobKey jobKey = JobKey.jobKey(jobName, groupName);
+            scheduler.resumeJob(jobKey);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
+
+    /**
+     * 立即执行一个job
+     *
+     * @param jobName
+     * @param groupName
+     */
+    public void runAJobNow(String jobName, String groupName) {
+        try {
+            JobKey jobKey = JobKey.jobKey(jobName, groupName);
+            scheduler.triggerJob(jobKey);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取所有计划中的任务列表
+     *
+     * @return
+     */
+    public List<Map<String, Object>> queryAllJob() {
+        try {
+            GroupMatcher<JobKey> matcher = GroupMatcher.anyJobGroup();
+            Set<JobKey> jobKeys = scheduler.getJobKeys(matcher);
+            List<Map<String, Object>> jobList = new ArrayList<>();
+            for (JobKey jobKey : jobKeys) {
+                List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);
+                for (Trigger trigger : triggers) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("jobName", jobKey.getName());
+                    map.put("groupName", jobKey.getGroup());
+                    map.put("description", "触发器:" + trigger.getKey());
+                    Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
+                    map.put("jobStatus", triggerState.name());
+                    if (trigger instanceof CronTrigger) {
+                        CronTrigger cronTrigger = (CronTrigger) trigger;
+                        String cronExpression = cronTrigger.getCronExpression();
+                        map.put("jobTime", cronExpression);
+                    }
+                    jobList.add(map);
+                }
+            }
+            return jobList;
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取所有正在运行的job
+     *
+     * @return
+     */
+    public List<Map<String, Object>> queryRunJob() {
+        try {
+            List<JobExecutionContext> executingJobs = scheduler.getCurrentlyExecutingJobs();
+            List<Map<String, Object>> jobList = new ArrayList<>(executingJobs.size());
+            for (JobExecutionContext executingJob : executingJobs) {
+                Map<String, Object> map = new HashMap<>();
+                JobDetail jobDetail = executingJob.getJobDetail();
+                JobKey jobKey = jobDetail.getKey();
+                Trigger trigger = executingJob.getTrigger();
+                map.put("jobName", jobKey.getName());
+                map.put("groupName", jobKey.getGroup());
+                map.put("description", "触发器:" + trigger.getKey());
+                Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
+                map.put("jobStatus", triggerState.name());
+                if (trigger instanceof CronTrigger) {
+                    CronTrigger cronTrigger = (CronTrigger) trigger;
+                    String cronExpression = cronTrigger.getCronExpression();
+                    map.put("jobTime", cronExpression);
+                }
+                jobList.add(map);
+            }
+            return jobList;
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取指定的job
+     *
+     * @return
+     */
+    public Map<String, Object> selectJob(String jobName, String groupName) {
+        try {
+            JobKey jobKey = JobKey.jobKey(jobName, groupName);
+            List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);
+            for (Trigger trigger : triggers) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("jobName", jobKey.getName());
+                map.put("groupName", jobKey.getGroup());
+                map.put("description", "触发器:" + trigger.getKey());
+                Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
+                map.put("jobStatus", triggerState.name());
+                if (trigger instanceof CronTrigger) {
+                    CronTrigger cronTrigger = (CronTrigger) trigger;
+                    String cronExpression = cronTrigger.getCronExpression();
+                    map.put("jobTime", cronExpression);
+                }
+
+                return map;
+            }
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

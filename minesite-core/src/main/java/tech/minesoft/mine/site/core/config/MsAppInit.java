@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 @Component
 @Order(0)
-public class VersionProcess implements ApplicationContextAware {
+public class MsAppInit implements ApplicationContextAware {
 
     @Autowired
     private MsMetaMapper metaMapper;

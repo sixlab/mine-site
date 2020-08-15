@@ -5,12 +5,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import tech.minesoft.mine.site.core.models.MsJob;
-import tech.minesoft.mine.site.core.models.MsJobRecord;
 import tech.minesoft.mine.site.core.service.MsJobService;
+import tech.minesoft.mine.site.core.utils.Err;
+import tech.minesoft.mine.site.core.utils.JsonUtils;
+import tech.minesoft.mine.site.core.vo.JobVo;
 import tech.minesoft.mine.site.core.vo.ResultJson;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/ms/job")
@@ -22,17 +24,19 @@ public class MsJobController {
     @PreAuthorize("hasAuthority('admin')")
     @GetMapping(value = "/list")
     public String list(ModelMap map) {
-        List<MsJob> dataList = jobService.loadAll();
-        map.put("dataList", dataList);
+        List<Map<String, Object>> jobs = jobService.queryAllJob();
+        map.put("jobs", jobs);
+        map.put("currentTitle", "所有");
         return "ms/job/list";
     }
 
     @PreAuthorize("hasAuthority('admin')")
-    @GetMapping(value = "/record")
-    public String record(ModelMap map) {
-        List<MsJobRecord> dataList = jobService.loadLastRecord();
-        map.put("dataList", dataList);
-        return "ms/job/record";
+    @GetMapping(value = "/active")
+    public String active(ModelMap map) {
+        List<Map<String, Object>> jobs = jobService.queryRunJob();
+        map.put("jobs", jobs);
+        map.put("currentTitle", "运行中");
+        return "ms/job/list";
     }
 
     @PreAuthorize("hasAuthority('admin')")
@@ -42,19 +46,29 @@ public class MsJobController {
     }
 
     @PreAuthorize("hasAuthority('admin')")
-    @GetMapping(value = "/edit/{id}")
-    public String edit(ModelMap map, @PathVariable Integer id) {
-        MsJob job = jobService.select(id);
+    @GetMapping(value = "/edit/{jobName}/{groupName}")
+    public String edit(ModelMap map, @PathVariable String jobName,  @PathVariable String groupName) {
+        Map<String, Object> job = jobService.selectJob(jobName, groupName);
         map.put("job", job);
         return "ms/job/edit";
     }
 
     @PreAuthorize("hasAuthority('admin')")
     @ResponseBody
-    @PostMapping(value = "/delete/{id}")
-    public ResultJson delete(@PathVariable Integer id) {
+    @PostMapping(value = "/delete")
+    public ResultJson delete(String jobName, String groupName) {
 
-        jobService.delete(id);
+        jobService.deleteJob(jobName, groupName);
+
+        return ResultJson.success();
+    }
+
+    @PreAuthorize("hasAuthority('admin')")
+    @ResponseBody
+    @PostMapping(value = "/run")
+    public ResultJson run(String jobName, String groupName) {
+
+        jobService.runAJobNow(jobName, groupName);
 
         return ResultJson.success();
     }
@@ -62,15 +76,18 @@ public class MsJobController {
     @PreAuthorize("hasAuthority('admin')")
     @ResponseBody
     @PostMapping(value = "/submit")
-    public ResultJson submit(MsJob job) {
+    public ResultJson submit(JobVo job) {
+        try {
+            Class clz = Class.forName(job.getJobClass());
+            Map jobData = JsonUtils.toBean(job.getJobData(), Map.class);
 
-        if(null==job.getId()){
-            jobService.add(job);
-        }else{
-            jobService.modify(job);
+            jobService.deleteJob(job.getJobName(), job.getGroupName());
+            jobService.addJob(clz, job.getJobName(), job.getGroupName(), job.getJobTime(), jobData);
+            return ResultJson.successData(jobService.queryAllJob());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return ResultJson.error(Err.EXCEPTION, "不存在类："+job.getJobClass());
         }
-
-        return ResultJson.success();
     }
 
 }
