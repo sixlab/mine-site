@@ -10,19 +10,19 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col" width="10%">序号</th>
+            <th scope="col" width="15%">组</th>
             <th scope="col" width="20%">名称</th>
-            <th scope="col" width="20%">组</th>
             <th scope="col" width="20%">cron</th>
             <th scope="col" width="15%">状态</th>
-            <th scope="col" width="15%">操作</th>
+            <th scope="col" width="20%">操作</th>
         </tr>
         </thead>
         <tbody>
         <#list jobs as item>
             <tr>
                 <td>${item_index}</td>
-                <td>${item.jobName!""}</td>
                 <td>${item.groupName!""}</td>
+                <td>${item.jobName!""}</td>
                 <td>${item.jobTime!""}</td>
                 <td>${item.jobStatus!""}</td>
                 <td>

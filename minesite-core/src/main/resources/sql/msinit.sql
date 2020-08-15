@@ -242,4 +242,4 @@ VALUES
 ('admin', 2, '菜单', '/ms/menu/list', '参数', 9100),
 ('admin', 2, '用户', '/ms/user/list', '参数', 9110),
 ('admin', 2, '任务', '/ms/job/list', '任务', 9900),
-('admin', 2, '启用任务', '/ms/job/active', '启用任务', 9910);
+('admin', 2, '运行任务', '/ms/job/active', '运行任务', 9910);

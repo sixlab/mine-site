@@ -5,24 +5,24 @@
 <div id="content">
     <form id="editFrm">
         <div class="form-group">
-            <label for="jobName">名称</label>
-            <input type="text" class="form-control" name="jobName" id="jobName" value="${(job.jobName)!''}">
-        </div>
-        <div class="form-group">
             <label for="groupName">组</label>
             <input type="text" class="form-control" name="groupName" id="groupName" value="${(job.groupName)!''}">
         </div>
         <div class="form-group">
-            <label for="jobData">编号</label>
-            <input type="text" class="form-control" name="jobData" id="jobData" value="${(job.jobData)!''}">
+            <label for="jobName">名称</label>
+            <input type="text" class="form-control" name="jobName" id="jobName" value="${(job.jobName)!''}">
         </div>
         <div class="form-group">
             <label for="jobClass">类</label>
             <input type="text" class="form-control" name="jobClass" id="jobClass" value="${(job.jobClass)!''}">
         </div>
         <div class="form-group">
-            <label for="jobTime">方法</label>
+            <label for="jobTime">cron表达式</label>
             <input type="text" class="form-control" name="jobTime" id="jobTime" value="${(job.jobTime)!''}">
+        </div>
+        <div class="form-group">
+            <label for="jobData">map的json数据</label>
+            <input type="text" class="form-control" name="jobData" id="jobData" value="${(job.jobData)!''}">
         </div>
         <div class="form-group" id="btnGroup">
             <a class="btn btn-secondary" href="/ms/job/list">返回</a>

@@ -147,8 +147,8 @@ create index SCHED_NAME
 
 update ms_menu
 set
-    menu_name = '启用任务',
-    menu_path = '启用任务',
+    menu_name = '运行任务',
+    menu_path = '运行任务',
     menu_path = '/ms/job/active'
 where
     menu_path = '/ms/job/record'
