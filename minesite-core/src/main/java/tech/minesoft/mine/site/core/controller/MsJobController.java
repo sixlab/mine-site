@@ -83,7 +83,7 @@ public class MsJobController {
 
             jobService.deleteJob(job.getJobName(), job.getGroupName());
             jobService.addJob(clz, job.getJobName(), job.getGroupName(), job.getJobTime(), jobData);
-            return ResultJson.successData(jobService.queryAllJob());
+            return ResultJson.success();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return ResultJson.error(Err.EXCEPTION, "不存在类："+job.getJobClass());
