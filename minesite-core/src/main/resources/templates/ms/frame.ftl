@@ -112,3 +112,41 @@
 </html>
 </@SiteInfo>
 </#macro>
+
+<#macro AdminPager link=''>
+    <nav>
+        <ul class="pagination">
+            <#if pageInfo.hasPreviousPage>
+                <li class="page-item">
+                    <a class="page-link" href="${link}?pageNum=${pageInfo.navigateFirstPage}">《</a>
+                </li>
+            <#else>
+                <li class="page-item disabled">
+                    <a class="page-link" href="###" tabindex="-1" aria-disabled="true">《1</a>
+                </li>
+            </#if>
+            <#list pageInfo.navigatepageNums as item>
+                <#if pageInfo.pageNum == item>
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="###" aria-disabled="true">${item} <span class="sr-only">(current)</span></a>
+                    </li>
+                <#else>
+                    <li class="page-item">
+                        <a class="page-link" href="${link}?pageNum=${item}">${item}</a>
+                    </li>
+                </#if>
+            </#list>
+            <li class="page-item">
+                <#if pageInfo.hasNextPage>
+                    <li class="page-item">
+                        <a class="page-link" href="${link}?pageNum=${pageInfo.navigateLastPage}">》</a>
+                    </li>
+                <#else>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="###" tabindex="-1" aria-disabled="true">》</a>
+                    </li>
+                </#if>
+            </li>
+        </ul>
+    </nav>
+</#macro>

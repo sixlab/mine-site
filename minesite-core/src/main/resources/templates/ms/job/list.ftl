@@ -20,7 +20,7 @@
         <tbody>
         <#list jobs as item>
             <tr>
-                <td>${item_index}</td>
+                <td>${item_index+1}</td>
                 <td>${item.groupName!""}</td>
                 <td>${item.jobName!""}</td>
                 <td>${item.jobTime!""}</td>

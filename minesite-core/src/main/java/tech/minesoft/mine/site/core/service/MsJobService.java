@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.*;
 
 @Slf4j
 @Service
+@DependsOn("msAppConfig")
 public class MsJobService {
 
     @Autowired

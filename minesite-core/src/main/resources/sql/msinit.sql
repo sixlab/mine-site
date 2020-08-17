@@ -232,7 +232,6 @@ INSERT INTO ms_user (username, nickname, password, role, status)
 VALUES
 ('admax', '管理员', '$2a$10$s/xO98MdVefRAl1Yj05aROXUxoUCCOnAW/Uf/DmTYMA1XC0MIbbBG', 'admin', '1');
 
-delete from ms_menu where menu_position = 'admin';
 INSERT INTO ms_menu
 (menu_position, menu_level, menu_name, menu_path, menu_summary, menu_order)
 VALUES

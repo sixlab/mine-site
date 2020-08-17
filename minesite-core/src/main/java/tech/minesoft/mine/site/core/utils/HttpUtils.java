@@ -312,12 +312,15 @@ public class HttpUtils {
         ResultJson result = new ResultJson();
 
         if (response != null) {
+            log.info("请求结束:" + response.request().url());
+            log.info("请求code:" + response.code());
+            log.info("请求message:" + response.message());
+
             result.addData("code", response.code());
 
             if (response.isSuccessful() && response.body() != null) {
                 try {
                     String text = new String(response.body().bytes(), charset);
-                    log.info("返回：" + text);
 
                     result.setStatus(Err.SUCCESS);
                     result.setMessage(text);
