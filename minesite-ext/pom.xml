@@ -11,14 +11,14 @@
     </parent>
     <groupId>tech.minesoft.mine.site</groupId>
     <artifactId>minesite-ext</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
     <name>minesite-ext</name>
 
     <dependencies>
         <dependency>
             <groupId>tech.minesoft.mine.site</groupId>
             <artifactId>minesite-core</artifactId>
-            <version>1.0.7-SNAPSHOT</version>
+            <version>1.0.8-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

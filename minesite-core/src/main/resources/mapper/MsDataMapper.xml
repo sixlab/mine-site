@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.minesoft.mine.site.core.mapper.MsDataMapper">
+  <resultMap id="BaseResultMap" type="tech.minesoft.mine.site.core.models.MsData">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="data_type" jdbcType="VARCHAR" property="dataType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.minesoft.mine.site.core.models.MsData">
+    <result column="data" jdbcType="LONGVARCHAR" property="data" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, data_type, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    data
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ms_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="tech.minesoft.mine.site.core.models.MsData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ms_data (data_type, create_time, data
+      )
+    values (#{dataType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{data,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="tech.minesoft.mine.site.core.models.MsData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ms_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataType != null">
+        data_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="data != null">
+        data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataType != null">
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.mine.site.core.models.MsData">
+    update ms_data
+    <set>
+      <if test="dataType != null">
+        data_type = #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="data != null">
+        data = #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.minesoft.mine.site.core.models.MsData">
+    update ms_data
+    set data_type = #{dataType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      data = #{data,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="tech.minesoft.mine.site.core.models.MsData">
+    update ms_data
+    set data_type = #{dataType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectOne" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_data
+    where 1=1
+    <if test=" dataType != null and dataType != '' ">
+      and data_type = #{dataType,jdbcType=VARCHAR}
+    </if>
+    <if test=" param != null and param != '' ">
+      and data -> ${param,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+  <sql id="Select_SQL_List">
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_data
+    where 1=1
+    <if test=" dataType != null and dataType != '' ">
+      and data_type = #{dataType,jdbcType=VARCHAR}
+    </if>
+    <if test=" param != null and param != '' ">
+      and data -> ${param,jdbcType=VARCHAR}
+    </if>
+  </sql>
+
+  <select id="selectList" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Select_SQL_List" />
+  </select>
+
+
+  <select id="selectOrderList" resultMap="ResultMapWithBLOBs">
+    select
+    <if test=" orderColumn != null and orderColumn != '' ">
+      data -> '${orderColumn}' AS orderColumn,
+    </if>
+
+    <include refid="Select_SQL_List" />
+
+    <if test=" orderColumn != null and orderColumn != '' ">
+      ORDER BY orderColumn <if test=" orderDesc != null and orderDesc ">DESC</if>
+    </if>
+  </select>
+</mapper>
