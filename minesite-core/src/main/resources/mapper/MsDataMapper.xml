@@ -3,14 +3,16 @@
 <mapper namespace="tech.minesoft.mine.site.core.mapper.MsDataMapper">
   <resultMap id="BaseResultMap" type="tech.minesoft.mine.site.core.models.MsData">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="data_type" jdbcType="VARCHAR" property="dataType" />
+    <result column="data_id" jdbcType="VARCHAR" property="dataId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.minesoft.mine.site.core.models.MsData">
     <result column="data" jdbcType="LONGVARCHAR" property="data" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, data_type, create_time
+    id, user_id, data_type, data_id, create_time
   </sql>
   <sql id="Blob_Column_List">
     data
@@ -31,10 +33,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ms_data (data_type, create_time, data
-      )
-    values (#{dataType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{data,jdbcType=LONGVARCHAR}
-      )
+    insert into ms_data (user_id, data_type, data_id, 
+      create_time, data)
+    values (#{userId,jdbcType=INTEGER}, #{dataType,jdbcType=VARCHAR}, #{dataId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{data,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="tech.minesoft.mine.site.core.models.MsData">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -42,8 +44,14 @@
     </selectKey>
     insert into ms_data
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
       <if test="dataType != null">
         data_type,
+      </if>
+      <if test="dataId != null">
+        data_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -53,8 +61,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
       <if test="dataType != null">
         #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataId != null">
+        #{dataId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -67,8 +81,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.mine.site.core.models.MsData">
     update ms_data
     <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
       <if test="dataType != null">
         data_type = #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataId != null">
+        data_id = #{dataId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -81,18 +101,39 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.minesoft.mine.site.core.models.MsData">
     update ms_data
-    set data_type = #{dataType,jdbcType=VARCHAR},
+    set user_id = #{userId,jdbcType=INTEGER},
+      data_type = #{dataType,jdbcType=VARCHAR},
+      data_id = #{dataId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       data = #{data,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="tech.minesoft.mine.site.core.models.MsData">
     update ms_data
-    set data_type = #{dataType,jdbcType=VARCHAR},
+    set user_id = #{userId,jdbcType=INTEGER},
+      data_type = #{dataType,jdbcType=VARCHAR},
+      data_id = #{dataId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+
+  <!--  -->
+
+
+  <delete id="delete">
+    delete from ms_data
+    where user_id = #{userId,jdbcType=INTEGER}
+    <if test=" dataType != null and dataType != '' ">
+      and data_type = #{dataType,jdbcType=VARCHAR}
+    </if>
+    <if test=" dataId != null and dataId != '' ">
+      and data_id = #{dataId,jdbcType=VARCHAR}
+    </if>
+    <if test=" param != null and param != '' ">
+      and data -> ${param,jdbcType=VARCHAR}
+    </if>
+  </delete>
 
   <select id="selectOne" resultMap="ResultMapWithBLOBs">
     select
@@ -100,9 +141,12 @@
     ,
     <include refid="Blob_Column_List" />
     from ms_data
-    where 1=1
+    where user_id = #{userId,jdbcType=INTEGER}
     <if test=" dataType != null and dataType != '' ">
       and data_type = #{dataType,jdbcType=VARCHAR}
+    </if>
+    <if test=" dataId != null and dataId != '' ">
+      and data_id = #{dataId,jdbcType=VARCHAR}
     </if>
     <if test=" param != null and param != '' ">
       and data -> ${param,jdbcType=VARCHAR}
@@ -115,7 +159,7 @@
     ,
     <include refid="Blob_Column_List" />
     from ms_data
-    where 1=1
+    where user_id = #{userId,jdbcType=INTEGER}
     <if test=" dataType != null and dataType != '' ">
       and data_type = #{dataType,jdbcType=VARCHAR}
     </if>
@@ -127,8 +171,8 @@
   <select id="selectList" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Select_SQL_List" />
+    ORDER BY id desc
   </select>
-
 
   <select id="selectOrderList" resultMap="ResultMapWithBLOBs">
     select
@@ -140,6 +184,9 @@
 
     <if test=" orderColumn != null and orderColumn != '' ">
       ORDER BY orderColumn <if test=" orderDesc != null and orderDesc ">DESC</if>
+    </if>
+    <if test=" orderColumn == null or orderColumn == '' ">
+      ORDER BY id desc
     </if>
   </select>
 </mapper>

@@ -20,13 +20,23 @@ public interface MsDataMapper {
 
     int updateByPrimaryKey(MsData record);
 
-    MsData selectOne(@Param("dataType")String dataType, @Param("param")String param);
+    int delete(@Param("userId")Integer userId,
+               @Param("dataType")String dataType,
+               @Param("dataId")String dataId,
+               @Param("param")String param);
 
-    List<MsData> selectList(@Param("dataType")String dataType,
+    MsData selectOne(@Param("userId")Integer userId,
+                     @Param("dataType")String dataType,
+                     @Param("dataId")String dataId,
+                     @Param("param")String param);
+
+    List<MsData> selectList(@Param("userId")Integer userId,
+                            @Param("dataType")String dataType,
                             @Param("param")String param);
 
-    List<MsData> selectOrderList(@Param("dataType")String dataType,
-                            @Param("param")String param,
-                            @Param("orderColumn")String orderColumn,
-                            @Param("orderDesc")Boolean orderDesc);
+    List<MsData> selectOrderList(@Param("userId")Integer userId,
+                                 @Param("dataType")String dataType,
+                                 @Param("param")String param,
+                                 @Param("orderColumn")String orderColumn,
+                                 @Param("orderDesc")Boolean orderDesc);
 }

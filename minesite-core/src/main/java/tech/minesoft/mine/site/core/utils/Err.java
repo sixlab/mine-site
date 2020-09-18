@@ -11,6 +11,8 @@ public class Err {
     public static Integer AUTH = 9999;
     // 验证权限失败
     public static Integer AUTH_MATCH = 9000;
+    // 无权限
+    public static Integer AUTH_NONE = 9100;
 
     // 已存在
     public static Integer ERR_EXIST = 4000;

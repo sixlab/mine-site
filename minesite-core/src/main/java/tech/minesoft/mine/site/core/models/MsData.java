@@ -6,7 +6,11 @@ import java.util.Date;
 public class MsData implements Serializable {
     private Integer id;
 
+    private Integer userId;
+
     private String dataType;
+
+    private String dataId;
 
     private Date createTime;
 
@@ -22,12 +26,28 @@ public class MsData implements Serializable {
         this.id = id;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getDataType() {
         return dataType;
     }
 
     public void setDataType(String dataType) {
         this.dataType = dataType == null ? null : dataType.trim();
+    }
+
+    public String getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(String dataId) {
+        this.dataId = dataId == null ? null : dataId.trim();
     }
 
     public Date getCreateTime() {

@@ -52,7 +52,7 @@ public class MovieService {
             site.setCreateTime(new Date());
             siteMapper.insert(site);
         }else{
-            throw new MineException(Err.ERR_EXIST, "已存在");
+            throw new MineException(Err.ERR_EXIST, "data.exist");
         }
     }
 
@@ -75,7 +75,7 @@ public class MovieService {
             player.setCreateTime(new Date());
             playerMapper.insert(player);
         } else {
-            throw new MineException(Err.ERR_EXIST, "已存在");
+            throw new MineException(Err.ERR_EXIST, "data.exist");
         }
     }
 
@@ -96,7 +96,7 @@ public class MovieService {
             group.setCreateTime(new Date());
             groupMapper.insert(group);
         } else {
-            throw new MineException(Err.ERR_EXIST, "已存在");
+            throw new MineException(Err.ERR_EXIST, "data.exist");
         }
     }
 
@@ -125,7 +125,7 @@ public class MovieService {
             userStar.setCreateTime(new Date());
             userStarMapper.insert(userStar);
         } else {
-            throw new MineException(Err.ERR_EXIST, "已存在");
+            throw new MineException(Err.ERR_EXIST, "data.exist");
         }
     }
 
