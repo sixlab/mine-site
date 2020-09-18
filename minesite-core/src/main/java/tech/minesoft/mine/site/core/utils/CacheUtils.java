@@ -37,6 +37,10 @@ public class CacheUtils {
         return get(code, Integer.class);
     }
 
+    public static Long getLong(String code) {
+        return get(code, Long.class);
+    }
+
     public static <T> T get(String code, Class<T> clz) {
         Cache cache = cacheManager.getCache(KEY);
 
