@@ -130,8 +130,8 @@
     <if test=" dataId != null and dataId != '' ">
       and data_id = #{dataId,jdbcType=VARCHAR}
     </if>
-    <if test=" param != null and param != '' ">
-      and data -> ${param,jdbcType=VARCHAR}
+    <if test=" cnd != null and cnd != '' ">
+      and data -> ${cnd,jdbcType=VARCHAR}
     </if>
   </delete>
 
@@ -148,8 +148,8 @@
     <if test=" dataId != null and dataId != '' ">
       and data_id = #{dataId,jdbcType=VARCHAR}
     </if>
-    <if test=" param != null and param != '' ">
-      and data -> ${param,jdbcType=VARCHAR}
+    <if test=" cnd != null and cnd != '' ">
+      and data -> ${cnd}
     </if>
   </select>
 
@@ -163,8 +163,8 @@
     <if test=" dataType != null and dataType != '' ">
       and data_type = #{dataType,jdbcType=VARCHAR}
     </if>
-    <if test=" param != null and param != '' ">
-      and data -> ${param,jdbcType=VARCHAR}
+    <if test=" cnd != null and cnd != '' ">
+      and data -> ${cnd}
     </if>
   </sql>
 

@@ -23,20 +23,20 @@ public interface MsDataMapper {
     int delete(@Param("userId")Integer userId,
                @Param("dataType")String dataType,
                @Param("dataId")String dataId,
-               @Param("param")String param);
+               @Param("cnd")String cnd);
 
     MsData selectOne(@Param("userId")Integer userId,
                      @Param("dataType")String dataType,
                      @Param("dataId")String dataId,
-                     @Param("param")String param);
+                     @Param("cnd")String cnd);
 
     List<MsData> selectList(@Param("userId")Integer userId,
                             @Param("dataType")String dataType,
-                            @Param("param")String param);
+                            @Param("cnd")String cnd);
 
     List<MsData> selectOrderList(@Param("userId")Integer userId,
                                  @Param("dataType")String dataType,
-                                 @Param("param")String param,
+                                 @Param("cnd")String cnd,
                                  @Param("orderColumn")String orderColumn,
                                  @Param("orderDesc")Boolean orderDesc);
 }

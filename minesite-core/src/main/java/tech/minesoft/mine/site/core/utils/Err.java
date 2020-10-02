@@ -18,4 +18,6 @@ public class Err {
     public static Integer ERR_EXIST = 4000;
     // 不存在
     public static Integer ERR_NOT_EXIST = 4004;
+    // SQL 异常
+    public static Integer ERR_SQL_INJECT = 4005;
 }

@@ -1,7 +1,5 @@
 package tech.minesoft.mine.site.core.service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.minesoft.mine.site.core.mapper.MsDataMapper;
@@ -24,19 +22,24 @@ public class MsDataService {
         return dataMapper.selectList(userUtils.loginedUserId(), dataType, "");
     }
 
-    public PageInfo<MsData> loadData(String dataType, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<MsData> loadData(String dataType, String param, Integer pageNum, Integer pageSize) {
+        // PageHelper.startPage(pageNum, pageSize);
 
-        List<MsData> infoList = dataMapper.selectList(userUtils.loginedUserId(), dataType, "");
+        List<MsData> infoList = dataMapper.selectList(userUtils.loginedUserId(), dataType, param);
 
-        return new PageInfo<>(infoList);
+        // return new PageInfo<>(infoList);
+        return infoList;
     }
 
     public void add(MsData data) {
-        MsData old = dataMapper.selectOne(userUtils.loginedUserId(), data.getDataType(), data.getDataId(), null);
+        Integer userId = userUtils.loginedUserId();
+
+        MsData old = dataMapper.selectOne(userId, data.getDataType(), data.getDataId(), null);
 
         if(null == old){
+            // 新增
             data.setId(null);
+            data.setUserId(userId);
             data.setCreateTime(new Date());
             dataMapper.insert(data);
         }else{
@@ -49,6 +52,7 @@ public class MsDataService {
 
         MsData old;
         if(null != data.getId()){
+            // 根据 ID 修改
             old = dataMapper.selectByPrimaryKey(data.getId());
 
             if(null==old){
@@ -59,6 +63,7 @@ public class MsDataService {
                 throw MineException.error(Err.AUTH_NONE, "auth.none");
             }
         }else{
+            // 根据数据标识修改
             old = dataMapper.selectOne(userId, data.getDataType(), data.getDataId(), null);
 
             if(null==old){
