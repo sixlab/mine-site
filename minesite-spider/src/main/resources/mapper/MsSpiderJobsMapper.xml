@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.minesoft.mine.site.core.mapper.MsSpiderJobsMapper">
+  <resultMap id="BaseResultMap" type="tech.minesoft.mine.site.core.models.MsSpiderJobs">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="job_cron" jdbcType="VARCHAR" property="jobCron" />
+    <result column="job_status" jdbcType="CHAR" property="jobStatus" />
+    <result column="proxy_type" jdbcType="CHAR" property="proxyType" />
+    <result column="ua_type" jdbcType="VARCHAR" property="uaType" />
+    <result column="thread_type" jdbcType="CHAR" property="threadType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.minesoft.mine.site.core.models.MsSpiderJobs">
+    <result column="url_code" jdbcType="LONGVARCHAR" property="urlCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, job_name, job_cron, job_status, proxy_type, ua_type, thread_type, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    url_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_spider_jobs
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ms_spider_jobs
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="tech.minesoft.mine.site.core.models.MsSpiderJobs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ms_spider_jobs (user_id, job_name, job_cron, 
+      job_status, proxy_type, ua_type, 
+      thread_type, create_time, url_code
+      )
+    values (#{userId,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{jobCron,jdbcType=VARCHAR}, 
+      #{jobStatus,jdbcType=CHAR}, #{proxyType,jdbcType=CHAR}, #{uaType,jdbcType=VARCHAR}, 
+      #{threadType,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{urlCode,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="tech.minesoft.mine.site.core.models.MsSpiderJobs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ms_spider_jobs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="jobName != null">
+        job_name,
+      </if>
+      <if test="jobCron != null">
+        job_cron,
+      </if>
+      <if test="jobStatus != null">
+        job_status,
+      </if>
+      <if test="proxyType != null">
+        proxy_type,
+      </if>
+      <if test="uaType != null">
+        ua_type,
+      </if>
+      <if test="threadType != null">
+        thread_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="urlCode != null">
+        url_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCron != null">
+        #{jobCron,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatus != null">
+        #{jobStatus,jdbcType=CHAR},
+      </if>
+      <if test="proxyType != null">
+        #{proxyType,jdbcType=CHAR},
+      </if>
+      <if test="uaType != null">
+        #{uaType,jdbcType=VARCHAR},
+      </if>
+      <if test="threadType != null">
+        #{threadType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urlCode != null">
+        #{urlCode,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.mine.site.core.models.MsSpiderJobs">
+    update ms_spider_jobs
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null">
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCron != null">
+        job_cron = #{jobCron,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatus != null">
+        job_status = #{jobStatus,jdbcType=CHAR},
+      </if>
+      <if test="proxyType != null">
+        proxy_type = #{proxyType,jdbcType=CHAR},
+      </if>
+      <if test="uaType != null">
+        ua_type = #{uaType,jdbcType=VARCHAR},
+      </if>
+      <if test="threadType != null">
+        thread_type = #{threadType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urlCode != null">
+        url_code = #{urlCode,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.minesoft.mine.site.core.models.MsSpiderJobs">
+    update ms_spider_jobs
+    set user_id = #{userId,jdbcType=INTEGER},
+      job_name = #{jobName,jdbcType=VARCHAR},
+      job_cron = #{jobCron,jdbcType=VARCHAR},
+      job_status = #{jobStatus,jdbcType=CHAR},
+      proxy_type = #{proxyType,jdbcType=CHAR},
+      ua_type = #{uaType,jdbcType=VARCHAR},
+      thread_type = #{threadType,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      url_code = #{urlCode,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="tech.minesoft.mine.site.core.models.MsSpiderJobs">
+    update ms_spider_jobs
+    set user_id = #{userId,jdbcType=INTEGER},
+      job_name = #{jobName,jdbcType=VARCHAR},
+      job_cron = #{jobCron,jdbcType=VARCHAR},
+      job_status = #{jobStatus,jdbcType=CHAR},
+      proxy_type = #{proxyType,jdbcType=CHAR},
+      ua_type = #{uaType,jdbcType=VARCHAR},
+      thread_type = #{threadType,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

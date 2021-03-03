@@ -1,7 +1,5 @@
 // package tech.minesoft.mine.site.service.config;
 //
-// import tech.minesoft.mine.site.core.mapper.MsUserMapper;
-// import tech.minesoft.mine.site.core.models.MsUser;
 // import org.apache.commons.lang3.ArrayUtils;
 // import org.apache.commons.lang3.StringUtils;
 // import org.springframework.beans.factory.annotation.Autowired;

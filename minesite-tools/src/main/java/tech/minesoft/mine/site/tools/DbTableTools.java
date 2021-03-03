@@ -21,7 +21,10 @@ public class DbTableTools {
 
     public static void main(String[] args) throws Exception {
         String[] tables = new String[]{
-                "ms_job",
+                "ms_spider_content_xxxxx",
+                "ms_spider_fields",
+                "ms_spider_jobs",
+                "ms_spider_urls",
         };
 
         // 获取到原始generatorConfig

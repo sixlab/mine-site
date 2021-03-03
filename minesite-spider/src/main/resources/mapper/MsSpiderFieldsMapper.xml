@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.minesoft.mine.site.core.mapper.MsSpiderFieldsMapper">
+  <resultMap id="BaseResultMap" type="tech.minesoft.mine.site.core.models.MsSpiderFields">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="job_id" jdbcType="INTEGER" property="jobId" />
+    <result column="field_name" jdbcType="VARCHAR" property="fieldName" />
+    <result column="field_code" jdbcType="VARCHAR" property="fieldCode" />
+    <result column="field_type" jdbcType="CHAR" property="fieldType" />
+    <result column="url_job_id" jdbcType="INTEGER" property="urlJobId" />
+    <result column="field_status" jdbcType="CHAR" property="fieldStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="tech.minesoft.mine.site.core.models.MsSpiderFields">
+    <result column="field_xpath" jdbcType="LONGVARCHAR" property="fieldXpath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, job_id, field_name, field_code, field_type, url_job_id, field_status, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    field_xpath
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_spider_fields
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ms_spider_fields
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="tech.minesoft.mine.site.core.models.MsSpiderFields">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ms_spider_fields (job_id, field_name, field_code, 
+      field_type, url_job_id, field_status, 
+      create_time, field_xpath)
+    values (#{jobId,jdbcType=INTEGER}, #{fieldName,jdbcType=VARCHAR}, #{fieldCode,jdbcType=VARCHAR}, 
+      #{fieldType,jdbcType=CHAR}, #{urlJobId,jdbcType=INTEGER}, #{fieldStatus,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{fieldXpath,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="tech.minesoft.mine.site.core.models.MsSpiderFields">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ms_spider_fields
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="fieldName != null">
+        field_name,
+      </if>
+      <if test="fieldCode != null">
+        field_code,
+      </if>
+      <if test="fieldType != null">
+        field_type,
+      </if>
+      <if test="urlJobId != null">
+        url_job_id,
+      </if>
+      <if test="fieldStatus != null">
+        field_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="fieldXpath != null">
+        field_xpath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldName != null">
+        #{fieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldCode != null">
+        #{fieldCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldType != null">
+        #{fieldType,jdbcType=CHAR},
+      </if>
+      <if test="urlJobId != null">
+        #{urlJobId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldStatus != null">
+        #{fieldStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fieldXpath != null">
+        #{fieldXpath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="tech.minesoft.mine.site.core.models.MsSpiderFields">
+    update ms_spider_fields
+    <set>
+      <if test="jobId != null">
+        job_id = #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldName != null">
+        field_name = #{fieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldCode != null">
+        field_code = #{fieldCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldType != null">
+        field_type = #{fieldType,jdbcType=CHAR},
+      </if>
+      <if test="urlJobId != null">
+        url_job_id = #{urlJobId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldStatus != null">
+        field_status = #{fieldStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fieldXpath != null">
+        field_xpath = #{fieldXpath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.minesoft.mine.site.core.models.MsSpiderFields">
+    update ms_spider_fields
+    set job_id = #{jobId,jdbcType=INTEGER},
+      field_name = #{fieldName,jdbcType=VARCHAR},
+      field_code = #{fieldCode,jdbcType=VARCHAR},
+      field_type = #{fieldType,jdbcType=CHAR},
+      url_job_id = #{urlJobId,jdbcType=INTEGER},
+      field_status = #{fieldStatus,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      field_xpath = #{fieldXpath,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="tech.minesoft.mine.site.core.models.MsSpiderFields">
+    update ms_spider_fields
+    set job_id = #{jobId,jdbcType=INTEGER},
+      field_name = #{fieldName,jdbcType=VARCHAR},
+      field_code = #{fieldCode,jdbcType=VARCHAR},
+      field_type = #{fieldType,jdbcType=CHAR},
+      url_job_id = #{urlJobId,jdbcType=INTEGER},
+      field_status = #{fieldStatus,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

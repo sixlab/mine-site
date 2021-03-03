@@ -12,8 +12,14 @@
     <modules>
         <module>demo-web</module>
         <module>minesite-core</module>
+        <module>minesite-mq</module>
+        <module>minesite-mysql</module>
+        <module>minesite-quartz</module>
+        <module>minesite-redis</module>
         <module>minesite-ext</module>
+        <module>minesite-spider</module>
         <module>minesite-tools</module>
+        <module>minesite-common</module>
     </modules>
 
 </project>
